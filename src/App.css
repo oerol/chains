@@ -4,6 +4,8 @@
 
 body {
   box-sizing: border-box;
+  color: #4b6587;
+  font-family: "Proxima Nova Soft";
 }
 
 #mainContent {
@@ -16,7 +18,7 @@ body {
 
 .cardHolder {
   display: flex;
-  background-color: rgba(57, 51, 22, 0.1);
+  background-color: #f0e5cf;
   border-radius: 2px;
   padding: 3px 7px;
   margin: 1px;
@@ -40,11 +42,15 @@ body {
 }
 
 .svgHolder:hover {
-  background-color: rgba(57, 51, 22, 0.2);
+  background-color: #c8c6c691;
   cursor: pointer;
 }
 
 .svgHolder svg {
   display: block;
   transform: rotate(-90deg);
+}
+
+.svgHolder:active {
+  background-color: #c8c6c6;
 }
