@@ -109,7 +109,7 @@ class Card extends Component {
       console.log(caretPosition);
 
       let firstElement = document.getElementById("mainContent").firstChild;
-      let currentElement = document.getElementById(question.id);
+      let currentElement = document.getElementById(question.id).parentNode;
       if (caretPosition.pos === 0 && firstElement !== currentElement) {
         event.preventDefault();
         this.moveCadet(question.id, "up");
