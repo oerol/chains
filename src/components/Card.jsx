@@ -111,6 +111,7 @@ class Card extends Component {
       let firstElement = document.getElementById("mainContent").firstChild;
       let currentElement = document.getElementById(question.id);
       if (caretPosition.pos === 0 && firstElement !== currentElement) {
+        event.preventDefault();
         this.moveCadet(question.id, "up");
 
         this.setState(
