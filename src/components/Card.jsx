@@ -99,10 +99,7 @@ class Card extends Component {
         this.moveCadet(question.id, "down");
       }
     }
-  };
-
-  handleKeyUp = (e, question) => {
-    if (e.key === "Backspace") {
+    if (event.key === "Backspace") {
       const caretPosition = position(document.getElementById(question.id)); // { left: 15, top: 30, height: 20, pos: 15 }
       console.log(caretPosition);
 
@@ -123,6 +120,9 @@ class Card extends Component {
         );
       }
     }
+  };
+
+  handleKeyUp = (e, question) => {
     this.saveToLocalStorage(question);
   };
   saveToLocalStorage = (question) => {
