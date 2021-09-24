@@ -153,7 +153,7 @@ class Card extends Component {
     } else if (direction === "delete") {
       elsa = document.getElementById("i");
     } else if (direction === "create") {
-      el = elsa;
+      el = elsa.children[1];
     }
 
     var range = document.createRange();
