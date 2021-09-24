@@ -6,6 +6,7 @@ body {
   box-sizing: border-box;
   color: #4b6587;
   font-family: "Proxima Nova Soft";
+  transition: 1s background-color ease-in-out;
 }
 
 #mainContent {
@@ -53,4 +54,29 @@ body {
 
 .svgHolder:active {
   background-color: #c8c6c6;
+}
+
+button {
+  padding: 7px 15px;
+  font-family: "Proxima Nova Soft";
+  font-weight: bold;
+  background-color: #8336cba1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  margin-left: 50px; /* visibility */
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #8336cbc4;
+}
+
+button:active {
+  background-color: #8236cb;
+}
+
+.reviewMode {
+  background-color: #b5deff;
 }

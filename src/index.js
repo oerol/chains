@@ -4,11 +4,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Card from "./components/Card";
+import ReviewButton from "./components/ReviewButton";
 
 ReactDOM.render(
   <React.StrictMode>
-    <div id="mainContent">
-      <Card />
+    <div>
+      <App />
     </div>
   </React.StrictMode>,
   document.getElementById("root")

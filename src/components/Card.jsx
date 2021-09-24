@@ -4,10 +4,14 @@ import { FcExpand } from "react-icons/fc";
 import { MdExpandMore } from "react-icons/md";
 
 class Card extends Component {
-  state = {
-    questions: JSON.parse(localStorage.getItem("myData")),
-    counter: Number(localStorage.getItem("counter")),
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      questions: JSON.parse(localStorage.getItem("myData")),
+      counter: Number(localStorage.getItem("counter")),
+    };
+  }
+
   /*   state = {
     questions: [
       {
@@ -41,7 +45,7 @@ class Card extends Component {
                 key={question.id}
                 id={question.id}
                 className="card"
-                contentEditable={true}
+                contentEditable={this.props.editable}
                 suppressContentEditableWarning={true}
                 onKeyPress={(e) => this.handleKeyPress(e, question)}
                 onKeyDown={(e) => this.handleKeyDown(e, question)}
