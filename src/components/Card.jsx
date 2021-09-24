@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { position, offset, Offset } from "caret-pos";
+import { FcExpand } from "react-icons/fc";
+import { MdExpandMore } from "react-icons/md";
 
 class Card extends Component {
   state = {
@@ -26,19 +28,22 @@ class Card extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.state.questions.map((question) => {
+        {this.state.questions.map((question, i) => {
           return (
-            <div
-              key={question.id}
-              id={question.id}
-              className="card"
-              contentEditable={true}
-              suppressContentEditableWarning={true}
-              onKeyPress={(e) => this.handleKeyPress(e, question)}
-              onKeyDown={(e) => this.handleKeyDown(e, question)}
-              onKeyUp={(e) => this.handleKeyUp(e, question)}
-            >
-              {question.question}
+            <div className="cardHolder" id={question.id + "holder"}>
+              <FcExpand />
+              <div
+                key={question.id}
+                id={question.id}
+                className="card"
+                contentEditable={true}
+                suppressContentEditableWarning={true}
+                onKeyPress={(e) => this.handleKeyPress(e, question)}
+                onKeyDown={(e) => this.handleKeyDown(e, question)}
+                onKeyUp={(e) => this.handleKeyUp(e, question)}
+              >
+                {question.question}
+              </div>
             </div>
           );
         })}
@@ -85,7 +90,7 @@ class Card extends Component {
   handleKeyDown = (event, question) => {
     if (event.key === "ArrowUp") {
       let firstElement = document.getElementById("mainContent").firstChild;
-      let currentElement = document.getElementById(question.id);
+      let currentElement = document.getElementById(question.id).parentNode;
       if (firstElement !== currentElement) {
         event.preventDefault();
         this.moveCadet(question.id, "up");
@@ -93,7 +98,7 @@ class Card extends Component {
     }
     if (event.key === "ArrowDown") {
       var lastElement = document.getElementById("mainContent").lastChild;
-      var currentElement = document.getElementById(question.id);
+      var currentElement = document.getElementById(question.id).parentNode;
       if (lastElement !== currentElement) {
         event.preventDefault();
         this.moveCadet(question.id, "down");
@@ -137,13 +142,13 @@ class Card extends Component {
 
   moveCadet = (id, direction) => {
     let el;
-    var elsa = document.getElementById(id);
+    var elsa = document.getElementById(id).parentNode;
 
     if (direction === "up") {
-      el = elsa.previousElementSibling;
+      el = elsa.previousElementSibling.children[1];
     } else if (direction === "down") {
       console.log(direction);
-      el = elsa.nextElementSibling;
+      el = elsa.nextElementSibling.children[1];
     } else if (direction === "delete") {
       elsa = document.getElementById("i");
     } else if (direction === "create") {
@@ -152,7 +157,7 @@ class Card extends Component {
 
     var range = document.createRange();
     var sel = window.getSelection();
-
+    console.log(elsa);
     el.textContent === "" ? range.setStart(el, 0) : range.setStart(el, 1);
 
     range.collapse(true);

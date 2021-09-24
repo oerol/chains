@@ -3,6 +3,7 @@
 }
 
 body {
+  box-sizing: border-box;
 }
 
 #mainContent {
@@ -13,9 +14,28 @@ body {
   padding: 20px 100px;
 }
 
-.card {
-  background-color: gainsboro;
-  padding: 3px 10px;
+.cardHolder {
+  display: flex;
+  background-color: rgba(57, 51, 22, 0.1);
+  border-radius: 2px;
+  padding: 3px 7px;
   margin: 1px;
-  width: 500px;
+  width: 700px;
+  align-items: center;
+}
+
+.card {
+  width: 100%;
+  margin-left: 5px;
+}
+
+.cardHolder svg {
+  transition: 0.1s;
+  padding: 1px;
+  border-radius: 3px;
+}
+
+.cardHolder svg:hover {
+  background-color: rgba(57, 51, 22, 0.2);
+  cursor: pointer;
 }
