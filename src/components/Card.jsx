@@ -31,7 +31,12 @@ class Card extends Component {
         {this.state.questions.map((question, i) => {
           return (
             <div className="cardHolder" id={question.id + "holder"}>
-              <FcExpand />
+              <div
+                className="svgHolder"
+                onClick={(e) => this.handleOnClick(question)}
+              >
+                <FcExpand />
+              </div>
               <div
                 key={question.id}
                 id={question.id}
@@ -50,6 +55,18 @@ class Card extends Component {
       </React.Fragment>
     );
   }
+  handleOnClick = (question) => {
+    let holder = document.getElementById(question.id + "holder").children[0]
+      .children[0];
+    if (
+      holder.style.transform === "" ||
+      holder.style.transform === "rotate(-90deg)"
+    ) {
+      holder.style.transform = "rotate(0deg)";
+    } else {
+      holder.style.transform = "rotate(-90deg)";
+    }
+  };
 
   handleKeyPress = (event, question) => {
     if (event.key === "Enter") {

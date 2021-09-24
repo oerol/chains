@@ -29,13 +29,22 @@ body {
   margin-left: 5px;
 }
 
-.cardHolder svg {
-  transition: 0.1s;
-  padding: 1px;
+.svgHolder {
+  padding: 2px;
   border-radius: 3px;
 }
 
-.cardHolder svg:hover {
+.svgHolder svg,
+.svgHolder {
+  transition: 0.1s;
+}
+
+.svgHolder:hover {
   background-color: rgba(57, 51, 22, 0.2);
   cursor: pointer;
+}
+
+.svgHolder svg {
+  display: block;
+  transform: rotate(-90deg);
 }
