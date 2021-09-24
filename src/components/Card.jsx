@@ -48,6 +48,7 @@ class Card extends Component {
 
   handleKeyPress = (event, question) => {
     if (event.key === "Enter") {
+      let elementPosition = this.state.questions.indexOf(question) + 1;
       event.preventDefault();
 
       this.setState({ counter: this.state.counter + 1 });
@@ -56,9 +57,15 @@ class Card extends Component {
         question: "",
       };
 
+      let copy = this.state.questions;
+      copy.splice(elementPosition, 0, newQuestion);
       this.setState(
-        { questions: [...this.state.questions, newQuestion] },
-        this.setCaret
+        {
+          questions: copy,
+        },
+        () => this.moveCadet(newQuestion.id, "create")
+
+        // this.moveCadet(newQuestion.id, "create")
       );
     }
   };
@@ -77,7 +84,9 @@ class Card extends Component {
 
   handleKeyDown = (event, question) => {
     if (event.key === "ArrowUp") {
-      if (question.id - 1 !== 0) {
+      let firstElement = document.getElementById("mainContent").firstChild;
+      let currentElement = document.getElementById(question.id);
+      if (firstElement !== currentElement) {
         event.preventDefault();
         this.moveCadet(question.id, "up");
       }
@@ -137,6 +146,8 @@ class Card extends Component {
       el = elsa.nextElementSibling;
     } else if (direction === "delete") {
       elsa = document.getElementById("i");
+    } else if (direction === "create") {
+      el = elsa;
     }
 
     var range = document.createRange();
