@@ -9,6 +9,7 @@ class Card extends Component {
     this.state = {
       questions: JSON.parse(localStorage.getItem("myData")),
       counter: Number(localStorage.getItem("counter")),
+      reviewCard: 0,
     };
   }
 
@@ -17,19 +18,28 @@ class Card extends Component {
       {
         id: 1,
         question: "Would it matter to me?",
+        status: 0,
       },
       {
         id: 2,
         question: "Would it matter to you?",
+        status: 0,
       },
       {
         id: 3,
         question: "Would it matter to us?",
+        status: 0,
       },
     ],
     counter: 20,
   }; */
+
   render() {
+    /*     document.addEventListener("keyup", (event) => {
+      if (!this.props.reviewMode && event.key === "ArrowRight") {
+        this.markCorrent();
+      }
+    }); */
     return (
       <React.Fragment>
         {this.state.questions.map((question, i) => {
@@ -59,6 +69,47 @@ class Card extends Component {
       </React.Fragment>
     );
   }
+  // should not use I GUESS
+  componentDidMount() {
+    document.addEventListener("keyup", (event) => {
+      if (!this.props.reviewMode) {
+        if (event.key === "ArrowRight") {
+          this.markCorrent();
+        } else if (event.key === "ArrowLeft") {
+          this.markIncorrent();
+        }
+      }
+    });
+  }
+
+  markIncorrent = () => {
+    let mainElement = document.getElementById("mainContent");
+
+    mainElement.children[this.state.reviewCard].style.backgroundColor =
+      "#FE8F8F";
+
+    if (this.state.reviewCard < mainElement.children.length - 1) {
+      this.setState({ reviewCard: this.state.reviewCard + 1 });
+      console.log(
+        "1. " + this.state.reviewCard + " 2. " + mainElement.children.length
+      );
+    }
+  };
+
+  markCorrent = () => {
+    let mainElement = document.getElementById("mainContent");
+
+    mainElement.children[this.state.reviewCard].style.backgroundColor =
+      "#B1E693";
+
+    if (this.state.reviewCard < mainElement.children.length - 1) {
+      this.setState({ reviewCard: this.state.reviewCard + 1 });
+      console.log(
+        "1. " + this.state.reviewCard + " 2. " + mainElement.children.length
+      );
+    }
+  };
+
   handleOnClick = (question) => {
     let holder = document.getElementById(question.id + "holder").children[0]
       .children[0];
@@ -81,6 +132,7 @@ class Card extends Component {
       let newQuestion = {
         id: this.state.counter,
         question: "",
+        status: 0,
       };
 
       let copy = this.state.questions;
@@ -145,6 +197,18 @@ class Card extends Component {
             return this.deleteFromLocalStorage(question);
           }
         );
+      }
+    }
+
+    /* REVIEW MODE */
+    if (event.key === "ArrowRight") {
+      let lastElement = document.getElementById("mainContent").lastChild;
+      let currentElement = document.getElementById(question.id).parentNode;
+      if (lastElement !== currentElement) {
+        event.preventDefault();
+        document.getElementById(
+          "mainContent"
+        ).children[0].style.backgroundColor = "green";
       }
     }
   };

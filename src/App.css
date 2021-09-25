@@ -19,12 +19,15 @@ body {
 
 .cardHolder {
   display: flex;
-  background-color: #f0e5cf;
+  background-color: #f0e5cfcc;
   border-radius: 2px;
   padding: 3px 7px;
   margin: 1px;
   width: 700px;
   align-items: center;
+}
+.cardHolder:hover {
+  background-color: #f0e5cf;
 }
 
 .card {
@@ -79,4 +82,8 @@ button:active {
 
 .reviewMode {
   background-color: #b5deff;
+}
+
+.highlightCard {
+  background-color: aqua;
 }

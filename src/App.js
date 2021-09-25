@@ -6,16 +6,22 @@ import Card from "./components/Card";
 import ReviewButton from "./components/ReviewButton";
 
 class App extends React.Component {
-  state = {
-    editable: "true",
-  };
-  render() {
-    console.table("APP" + this.state.editable);
+  constructor(props) {
+    super(props);
+    this.state = {
+      editable: "true",
+      reviewMode: "false",
+    };
+  }
 
+  render() {
     return (
       <React.Fragment>
         <div id="mainContent">
-          <Card editable={this.state.editable} />
+          <Card
+            editable={this.state.editable}
+            reviewMode={this.state.reviewMode}
+          />
         </div>
 
         <div onClick={this.handleOnClick}>
@@ -28,9 +34,13 @@ class App extends React.Component {
   handleOnClick = () => {
     this.setState((prevState) => ({
       editable: !prevState.editable,
+      reviewMode: !prevState.reviewMode,
     }));
-    console.log(document.getElementsByTagName("body")[0].style.backgroundColor);
+
     document.getElementsByTagName("body")[0].classList.toggle("reviewMode");
+    document
+      .getElementById("mainContent")
+      .children[0].classList.add("highlightCard");
   };
 }
 
