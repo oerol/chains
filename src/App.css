@@ -25,6 +25,7 @@ body {
   margin: 1px;
   width: 700px;
   align-items: center;
+  transition: 0.3s background-color ease-in-out;
 }
 .cardHolder:hover {
   background-color: #f0e5cf;
@@ -86,4 +87,15 @@ button:active {
 
 .highlightCard {
   background-color: aqua;
+}
+
+.cardPointer {
+  width: 4px;
+  height: 26px;
+  background-color: red;
+  position: absolute;
+  margin-left: -14px;
+  margin-top: 0px;
+  transition: 0.3s ease-out;
+  border-radius: 1px;
 }

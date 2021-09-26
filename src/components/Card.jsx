@@ -94,6 +94,7 @@ class Card extends Component {
         "1. " + this.state.reviewCard + " 2. " + mainElement.children.length
       );
     }
+    this.moveCardPointer();
   };
 
   markCorrent = () => {
@@ -108,6 +109,14 @@ class Card extends Component {
         "1. " + this.state.reviewCard + " 2. " + mainElement.children.length
       );
     }
+    this.moveCardPointer();
+  };
+
+  moveCardPointer = () => {
+    let cardPointerElement = document.getElementById("cardPointer");
+
+    cardPointerElement.style.marginTop = `${this.state.reviewCard * 56}px`;
+    console.log(cardPointerElement.style.marginTop);
   };
 
   handleOnClick = (question) => {

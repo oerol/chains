@@ -37,10 +37,20 @@ class App extends React.Component {
       reviewMode: !prevState.reviewMode,
     }));
 
+    this.createCardPointer();
+
     document.getElementsByTagName("body")[0].classList.toggle("reviewMode");
     document
       .getElementById("mainContent")
-      .children[0].classList.add("highlightCard");
+      .children[0].classList.add("cardPointer2");
+  };
+
+  createCardPointer = () => {
+    let pointerElement = document.createElement("div");
+    let holder = document.getElementById("mainContent").firstChild;
+    pointerElement.classList.add("cardPointer");
+    pointerElement.setAttribute("id", "cardPointer");
+    holder.insertBefore(pointerElement, holder.firstChild);
   };
 }
 
