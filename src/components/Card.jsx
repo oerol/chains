@@ -85,42 +85,54 @@ class Card extends Component {
   markIncorrent = () => {
     let mainElement = document.getElementById("mainContent");
 
-    mainElement.children[this.state.reviewCard].style.backgroundColor =
-      "#FE8F8F";
+    if (this.state.reviewCard < mainElement.children.length) {
+      mainElement.children[this.state.reviewCard].style.backgroundColor =
+        "#FE8F8F";
+      this.moveCardPointer();
 
-    if (this.state.reviewCard < mainElement.children.length - 1) {
-      this.setState({ reviewCard: this.state.reviewCard + 1 });
-      console.log(
-        "1. " + this.state.reviewCard + " 2. " + mainElement.children.length
-      );
+      let copyOfArray = [...this.state.questions];
+      let copyOfQuestion = { ...copyOfArray[this.state.reviewCard] };
+      copyOfQuestion.status++;
+      copyOfArray[this.state.reviewCard] = copyOfQuestion;
+      this.setState({
+        reviewCard: this.state.reviewCard - 1,
+        questions: copyOfArray,
+      });
     } else {
       this.finishReview();
     }
-    this.moveCardPointer();
   };
 
   markCorrent = () => {
     let mainElement = document.getElementById("mainContent");
 
-    mainElement.children[this.state.reviewCard].style.backgroundColor =
-      "#B1E693";
+    if (this.state.reviewCard < mainElement.children.length) {
+      mainElement.children[this.state.reviewCard].style.backgroundColor =
+        "#B1E693";
+      this.moveCardPointer();
 
-    if (this.state.reviewCard < mainElement.children.length - 1) {
-      this.setState({ reviewCard: this.state.reviewCard + 1 });
-      console.log(
-        "1. " + this.state.reviewCard + " 2. " + mainElement.children.length
-      );
+      console.log(this.state.reviewCard);
+      let copyOfArray = [...this.state.questions];
+      let copyOfQuestion = { ...copyOfArray[this.state.reviewCard] };
+      copyOfQuestion.status++;
+      copyOfArray[this.state.reviewCard] = copyOfQuestion;
+      this.setState({
+        reviewCard: this.state.reviewCard + 1,
+        questions: copyOfArray,
+      });
     } else {
       this.finishReview();
     }
-    this.moveCardPointer();
   };
 
   moveCardPointer = () => {
+    console.log("WOOBACC" + this.state.reviewCard);
+
     let cardPointerElement = document.getElementById("cardPointer");
 
-    cardPointerElement.style.marginTop = `${this.state.reviewCard * 56}px`;
-    console.log(cardPointerElement.style.marginTop);
+    cardPointerElement.style.marginTop = `${
+      (this.state.reviewCard + 1) * 56
+    }px`;
   };
 
   handleOnClick = (question) => {
@@ -147,6 +159,8 @@ class Card extends Component {
       holder.appendChild(finishIndicator);
       finishIndicator.style.animation = "fade-in 2s";
     }
+
+    this.saveReviewToLocalStorage();
   };
 
   handleKeyPress = (event, question) => {
@@ -249,6 +263,10 @@ class Card extends Component {
   };
 
   deleteFromLocalStorage = (question) => {
+    localStorage.setItem("myData", JSON.stringify(this.state.questions));
+  };
+
+  saveReviewToLocalStorage = () => {
     localStorage.setItem("myData", JSON.stringify(this.state.questions));
   };
 
