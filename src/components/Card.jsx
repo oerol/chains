@@ -93,6 +93,8 @@ class Card extends Component {
       console.log(
         "1. " + this.state.reviewCard + " 2. " + mainElement.children.length
       );
+    } else {
+      this.finishReview();
     }
     this.moveCardPointer();
   };
@@ -108,6 +110,8 @@ class Card extends Component {
       console.log(
         "1. " + this.state.reviewCard + " 2. " + mainElement.children.length
       );
+    } else {
+      this.finishReview();
     }
     this.moveCardPointer();
   };
@@ -129,6 +133,19 @@ class Card extends Component {
       holder.style.transform = "rotate(0deg)";
     } else {
       holder.style.transform = "rotate(-90deg)";
+    }
+  };
+
+  finishReview = () => {
+    if (!document.getElementById("finishIndicator")) {
+      let finishIndicator = document.createElement("p");
+      let holder = document.getElementsByTagName("body")[0];
+      finishIndicator.setAttribute("id", "finishIndicator");
+      //  finishIndicator.classList.add("cardPointer");
+      finishIndicator.textContent =
+        "YOU ARE DONE! HEY SIRI, PLAY CONGRATULATIONS.. . . ";
+      holder.appendChild(finishIndicator);
+      finishIndicator.style.animation = "fade-in 2s";
     }
   };
 
