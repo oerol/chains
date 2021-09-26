@@ -99,3 +99,12 @@ button:active {
   transition: 0.3s ease-out;
   border-radius: 1px;
 }
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

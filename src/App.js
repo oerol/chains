@@ -51,6 +51,7 @@ class App extends React.Component {
     pointerElement.classList.add("cardPointer");
     pointerElement.setAttribute("id", "cardPointer");
     holder.insertBefore(pointerElement, holder.firstChild);
+    pointerElement.style.animation = "fade-in 2s";
   };
 }
 
