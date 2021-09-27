@@ -86,6 +86,7 @@ class Card extends Component {
     let mainElement = document.getElementById("mainContent");
 
     if (this.state.reviewCard < mainElement.children.length) {
+      console.log(this.state.reviewCard);
       mainElement.children[this.state.reviewCard].style.backgroundColor =
         "#FE8F8F";
       this.moveCardPointer();
@@ -95,7 +96,7 @@ class Card extends Component {
       copyOfQuestion.status++;
       copyOfArray[this.state.reviewCard] = copyOfQuestion;
       this.setState({
-        reviewCard: this.state.reviewCard - 1,
+        reviewCard: this.state.reviewCard + 1,
         questions: copyOfArray,
       });
     } else {
@@ -126,13 +127,16 @@ class Card extends Component {
   };
 
   moveCardPointer = () => {
-    console.log("WOOBACC" + this.state.reviewCard);
-
     let cardPointerElement = document.getElementById("cardPointer");
+    let mainElement = document.getElementById("mainContent");
 
-    cardPointerElement.style.marginTop = `${
-      (this.state.reviewCard + 1) * 56
-    }px`;
+    if (this.state.reviewCard < mainElement.children.length - 1) {
+      cardPointerElement.style.marginTop = `${
+        (this.state.reviewCard + 1) * 56
+      }px`;
+    } else {
+      this.finishReview();
+    }
   };
 
   handleOnClick = (question) => {
