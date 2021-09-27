@@ -37,7 +37,21 @@ class App extends React.Component {
       reviewMode: !prevState.reviewMode,
     }));
 
-    this.createCardPointer();
+    if (this.state.reviewMode) {
+      document.getElementById("reviewButton").innerText = "Beenden";
+      this.createCardPointer();
+    } else {
+      document.getElementById("reviewButton").innerText = "Review";
+
+      if (document.getElementById("cardPointer")) {
+        document.getElementById("cardPointer").remove();
+      }
+      let cards = document.getElementById("mainContent").children;
+
+      for (let card of cards) {
+        card.style.backgroundColor = "";
+      }
+    }
 
     document.getElementsByTagName("body")[0].classList.toggle("reviewMode");
     document
