@@ -245,7 +245,7 @@ class Card extends Component {
     }
 
     /* REVIEW MODE */
-    if (event.key === "ArrowRight") {
+    /*   if (event.key === "ArrowRight") {
       let lastElement = document.getElementById("mainContent").lastChild;
       let currentElement = document.getElementById(question.id).parentNode;
       if (lastElement !== currentElement) {
@@ -254,7 +254,7 @@ class Card extends Component {
           "mainContent"
         ).children[0].style.backgroundColor = "green";
       }
-    }
+    } */
   };
 
   handleKeyUp = (e, question) => {
@@ -287,12 +287,15 @@ class Card extends Component {
       elsa = document.getElementById("i");
     } else if (direction === "create") {
       el = elsa.children[1];
+      el.textContent = "?";
     }
 
     var range = document.createRange();
     var sel = window.getSelection();
     console.log(elsa);
-    el.textContent === "" ? range.setStart(el, 0) : range.setStart(el, 1);
+    el.textContent === "" || el.textContent === "?"
+      ? range.setStart(el, 0)
+      : range.setStart(el, 1);
 
     range.collapse(true);
 
