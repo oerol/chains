@@ -306,7 +306,7 @@ class Card extends Component {
     sel.removeAllRanges();
     sel.addRange(range);
   };
-
+  /* Moves text to upper card, before deleting a card */
   moveTextToUpperCard = (text, currentElement) => {
     let previousElement = currentElement.previousSibling;
     let content = document.createTextNode(text);
