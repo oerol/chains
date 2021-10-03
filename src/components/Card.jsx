@@ -86,7 +86,6 @@ class Card extends Component {
     let mainElement = document.getElementById("mainContent");
 
     if (this.state.reviewCard < mainElement.children.length) {
-      console.log(this.state.reviewCard);
       mainElement.children[this.state.reviewCard].style.backgroundColor =
         "#FE8F8F";
       this.moveCardPointer();
@@ -112,7 +111,6 @@ class Card extends Component {
         "#B1E693";
       this.moveCardPointer();
 
-      console.log(this.state.reviewCard);
       let copyOfArray = [...this.state.questions];
       let copyOfQuestion = { ...copyOfArray[this.state.reviewCard] };
       copyOfQuestion.status++;
@@ -169,26 +167,64 @@ class Card extends Component {
 
   handleKeyPress = (event, question) => {
     if (event.key === "Enter") {
-      let elementPosition = this.state.questions.indexOf(question) + 1;
       event.preventDefault();
 
-      this.setState({ counter: this.state.counter + 1 });
-      let newQuestion = {
-        id: this.state.counter,
-        question: "",
-        status: 0,
-      };
+      let elementPosition = this.state.questions.indexOf(question) + 1;
+      let currentElement = document.getElementById(question.id);
 
-      let copy = this.state.questions;
-      copy.splice(elementPosition, 0, newQuestion);
-      this.setState(
-        {
-          questions: copy,
-        },
-        () => this.moveCadet(newQuestion.id, "create")
+      let textLength = currentElement.innerText.length;
+      const caretPosition = position(currentElement).pos;
+      console.log(caretPosition);
+      console.log(textLength);
 
-        // this.moveCadet(newQuestion.id, "create")
-      );
+      if (caretPosition === textLength) {
+        this.setState({ counter: this.state.counter + 1 });
+        let newQuestion = {
+          id: this.state.counter,
+          question: "",
+          status: 0,
+        };
+
+        let copy = this.state.questions;
+        copy.splice(elementPosition, 0, newQuestion);
+        this.setState(
+          {
+            questions: copy,
+          },
+          () => this.moveCadet(newQuestion.id, "create")
+
+          // this.moveCadet(newQuestion.id, "create")
+        );
+      } else {
+        this.setState({ counter: this.state.counter + 1 });
+        let currentText = currentElement.textContent;
+        let cutText = currentText.substring(caretPosition, textLength);
+        let newQuestion = {
+          id: this.state.counter,
+          question: cutText,
+          status: 0,
+        };
+
+        let currentElementText = currentElement.textContent.substring(
+          0,
+          caretPosition
+        );
+        currentElementText += "?";
+
+        let copy = this.state.questions;
+        copy.splice(elementPosition, 0, newQuestion);
+        let currentPosition = copy.indexOf(question);
+        copy[currentPosition].question = currentElementText;
+
+        this.setState(
+          {
+            questions: copy,
+          },
+          () => this.moveCadet(newQuestion.id, "create-append")
+
+          // this.moveCadet(newQuestion.id, "create")
+        );
+      }
     }
   };
 
@@ -223,7 +259,6 @@ class Card extends Component {
     }
     if (event.key === "Backspace") {
       const caretPosition = position(document.getElementById(question.id)); // { left: 15, top: 30, height: 20, pos: 15 }
-      console.log(caretPosition);
 
       let firstElement = document.getElementById("mainContent").firstChild;
       let currentElement = document.getElementById(question.id).parentNode;
@@ -285,19 +320,22 @@ class Card extends Component {
     if (direction === "up") {
       el = elsa.previousElementSibling.children[1];
     } else if (direction === "down") {
-      console.log(direction);
       el = elsa.nextElementSibling.children[1];
     } else if (direction === "delete") {
       elsa = document.getElementById("i");
     } else if (direction === "create") {
       el = elsa.children[1];
       el.textContent = "?";
+    } else if (direction === "create-append") {
+      el = elsa.children[1];
+      if (!el.textContent.includes("?")) {
+        el.textContent += "?";
+      }
     }
 
     var range = document.createRange();
     var sel = window.getSelection();
-    console.log(elsa);
-    el.textContent === "" || el.textContent === "?"
+    el.textContent === "" || el.textContent.includes("?")
       ? range.setStart(el, 0)
       : range.setStart(el, 1);
 
@@ -313,6 +351,8 @@ class Card extends Component {
 
     previousElement.lastChild.appendChild(content);
   };
+
+  moveTextToLowerCard = (text, currentElement) => {};
 }
 
 export default Card;
