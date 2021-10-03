@@ -229,6 +229,10 @@ class Card extends Component {
       let currentElement = document.getElementById(question.id).parentNode;
       if (caretPosition.pos === 0 && firstElement !== currentElement) {
         event.preventDefault();
+
+        if (currentElement.innerText !== "") {
+          this.moveTextToUpperCard(currentElement.innerText, currentElement);
+        }
         this.moveCadet(question.id, "up");
 
         this.setState(
@@ -301,6 +305,13 @@ class Card extends Component {
 
     sel.removeAllRanges();
     sel.addRange(range);
+  };
+
+  moveTextToUpperCard = (text, currentElement) => {
+    let previousElement = currentElement.previousSibling;
+    let content = document.createTextNode(text);
+
+    previousElement.lastChild.appendChild(content);
   };
 }
 
