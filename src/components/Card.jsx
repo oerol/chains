@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { position, offset, Offset } from "caret-pos";
+import { position } from "caret-pos";
 import { FcExpand } from "react-icons/fc";
-import { MdExpandMore } from "react-icons/md";
+import { BsArrowReturnRight } from "react-icons/bs";
 
 class Card extends Component {
   constructor(props) {
@@ -62,6 +62,10 @@ class Card extends Component {
                 onKeyUp={(e) => this.handleKeyUp(e, question)}
               >
                 {question.question}
+              </div>
+              <div className="answerHolder">
+                <BsArrowReturnRight className="answerArrow" />
+                <span className="answerText">HELLO</span>
               </div>
             </div>
           );
@@ -137,6 +141,7 @@ class Card extends Component {
     }
   };
 
+  /* handles svg holder onclick */
   handleOnClick = (question) => {
     let holder = document.getElementById(question.id + "holder").children[0]
       .children[0];
@@ -145,9 +150,22 @@ class Card extends Component {
       holder.style.transform === "rotate(-90deg)"
     ) {
       holder.style.transform = "rotate(0deg)";
+      this.revealAnswer(true, question);
     } else {
       holder.style.transform = "rotate(-90deg)";
+      this.revealAnswer(false, question);
     }
+  };
+
+  revealAnswer = (b, question) => {
+    let answerHolderElement = document
+      .getElementById(question.id + "holder")
+      .getElementsByClassName("answerHolder")[0];
+    console.log(answerHolderElement.style.display);
+
+    b
+      ? (answerHolderElement.style.display = "flex")
+      : (answerHolderElement.style.display = "none");
   };
 
   finishReview = () => {

@@ -19,6 +19,8 @@ body {
 
 .cardHolder {
   display: flex;
+  flex-wrap: wrap;
+
   background-color: #f0e5cfcc;
   border-radius: 2px;
   padding: 3px 7px;
@@ -34,11 +36,13 @@ body {
 .card {
   width: 100%;
   margin-left: 5px;
+  flex: 1;
 }
 
 .svgHolder {
   padding: 2px;
   border-radius: 3px;
+  flex: 0;
 }
 
 .svgHolder svg,
@@ -107,4 +111,19 @@ button:active {
   to {
     opacity: 1;
   }
+}
+
+.answerHolder {
+  height: 20px;
+  width: 100%;
+  display: none; /* switches to flex on click */
+  align-items: center;
+}
+
+.answerArrow {
+  margin-left: 24px;
+}
+
+.answerHolder span {
+  margin-left: 5px;
 }
