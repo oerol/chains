@@ -118,12 +118,21 @@ button:active {
   width: 100%;
   display: none; /* switches to flex on click */
   align-items: center;
+  cursor: text;
 }
 
 .answerArrow {
   margin-left: 24px;
+  margin-right: 5px;
 }
 
 .answerHolder span {
   margin-left: 5px;
+}
+
+.answerText {
+  display: block;
+  outline: 1px solid transparent;
+  padding-left: 1px; /* else, cursor won't be visible  */
+  width: 100%;
 }

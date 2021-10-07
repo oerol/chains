@@ -18,16 +18,19 @@ class Card extends Component {
       {
         id: 1,
         question: "Would it matter to me?",
+        answer: "It would.",
         status: 0,
       },
       {
         id: 2,
         question: "Would it matter to you?",
+        answer: "It would not..",
         status: 0,
       },
       {
         id: 3,
         question: "Would it matter to us?",
+        answer: "I don't know.",
         status: 0,
       },
     ],
@@ -65,7 +68,14 @@ class Card extends Component {
               </div>
               <div className="answerHolder">
                 <BsArrowReturnRight className="answerArrow" />
-                <span className="answerText">HELLO</span>
+                <div
+                  className="answerText"
+                  contentEditable={this.props.editable}
+                  suppressContentEditableWarning={true}
+                  onKeyUp={(e) => this.handleKeyUp(e, question)}
+                >
+                  {question.answer}
+                </div>
               </div>
             </div>
           );
@@ -227,6 +237,7 @@ class Card extends Component {
         let newQuestion = {
           id: this.state.counter,
           question: "",
+          answer: "",
           status: 0,
         };
 
@@ -247,6 +258,7 @@ class Card extends Component {
         let newQuestion = {
           id: this.state.counter,
           question: cutText,
+          answer: "",
           status: 0,
         };
 
@@ -346,6 +358,11 @@ class Card extends Component {
   };
   saveToLocalStorage = (question) => {
     question.question = document.getElementById(question.id).innerText;
+    question.answer = document
+      .getElementById(question.id)
+      .parentElement.getElementsByClassName(
+        "answerHolder"
+      )[0].lastChild.innerText;
     localStorage.setItem("myData", JSON.stringify(this.state.questions));
     localStorage.setItem("counter", this.state.counter);
   };
