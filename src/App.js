@@ -1,71 +1,45 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "./App.css";
-import reportWebVitals from "./reportWebVitals";
 import Card from "./components/Card";
 import ReviewButton from "./components/ReviewButton";
+import PomodoroTimer from "./components/PomodoroTimer";
+import Navigation from "./components/Navigation";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editable: "true",
-      reviewMode: "false",
+      editable: true,
+      reviewMode: false,
     };
   }
 
   render() {
     return (
       <React.Fragment>
+        <Navigation />
         <div id="mainContent">
           <Card
             editable={this.state.editable}
-            reviewMode={this.state.reviewMode}
+            reviewMode={!this.state.reviewMode}
           />
         </div>
 
-        <div onClick={this.handleOnClick}>
-          <ReviewButton></ReviewButton>
+        <div onClick={(e) => this.handleOnClick(e)}>
+          <ReviewButton reviewMode={this.state.reviewMode}></ReviewButton>
         </div>
+        <PomodoroTimer durationInMinutes={10} />
       </React.Fragment>
     );
   }
 
-  handleOnClick = () => {
+  handleOnClick = (e) => {
+    console.log(this.state.reviewMode);
+
     this.setState((prevState) => ({
       editable: !prevState.editable,
       reviewMode: !prevState.reviewMode,
     }));
-
-    if (this.state.reviewMode) {
-      document.getElementById("reviewButton").innerText = "Beenden";
-      this.createCardPointer();
-    } else {
-      document.getElementById("reviewButton").innerText = "Review";
-
-      if (document.getElementById("cardPointer")) {
-        document.getElementById("cardPointer").remove();
-      }
-      let cards = document.getElementById("mainContent").children;
-
-      for (let card of cards) {
-        card.style.backgroundColor = "";
-      }
-    }
-
-    document.getElementsByTagName("body")[0].classList.toggle("reviewMode");
-    document
-      .getElementById("mainContent")
-      .children[0].classList.add("cardPointer2");
-  };
-
-  createCardPointer = () => {
-    let pointerElement = document.createElement("div");
-    let holder = document.getElementById("mainContent").firstChild;
-    pointerElement.classList.add("cardPointer");
-    pointerElement.setAttribute("id", "cardPointer");
-    holder.insertBefore(pointerElement, holder.firstChild);
-    pointerElement.style.animation = "fade-in 2s";
   };
 }
 
