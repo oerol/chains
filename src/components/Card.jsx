@@ -81,6 +81,8 @@ class Card extends Component {
           this.markCorrent();
         } else if (event.key === "ArrowLeft") {
           this.markIncorrent();
+        } else if (event.key === " ") {
+          this.expandCardPointer();
         }
       }
     });
@@ -141,6 +143,30 @@ class Card extends Component {
     }
   };
 
+  expandCardPointer = () => {
+    if (this.state.reviewCard < this.state.questions.length) {
+      let holder = document
+        .getElementById(
+          this.state.questions[this.state.reviewCard].id + "holder"
+        )
+        .getElementsByClassName("svgHolder")[0].children[0];
+
+      if (
+        holder.style.transform === "" ||
+        holder.style.transform === "rotate(-90deg)"
+      ) {
+        holder.style.transform = "rotate(0deg)";
+        this.revealAnswer(true, this.state.questions[this.state.reviewCard].id);
+      } else {
+        holder.style.transform = "rotate(-90deg)";
+        this.revealAnswer(
+          false,
+          this.state.questions[this.state.reviewCard].id
+        );
+      }
+    }
+  };
+
   /* handles svg holder onclick */
   handleOnClick = (question) => {
     let holder = document
@@ -151,16 +177,16 @@ class Card extends Component {
       holder.style.transform === "rotate(-90deg)"
     ) {
       holder.style.transform = "rotate(0deg)";
-      this.revealAnswer(true, question);
+      this.revealAnswer(true, question.id);
     } else {
       holder.style.transform = "rotate(-90deg)";
-      this.revealAnswer(false, question);
+      this.revealAnswer(false, question.id);
     }
   };
 
-  revealAnswer = (b, question) => {
+  revealAnswer = (b, questionId) => {
     let answerHolderElement = document
-      .getElementById(question.id + "holder")
+      .getElementById(questionId + "holder")
       .getElementsByClassName("answerHolder")[0];
     console.log(answerHolderElement.style.display);
 
