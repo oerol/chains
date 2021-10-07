@@ -143,8 +143,9 @@ class Card extends Component {
 
   /* handles svg holder onclick */
   handleOnClick = (question) => {
-    let holder = document.getElementById(question.id + "holder").children[0]
-      .children[0];
+    let holder = document
+      .getElementById(question.id + "holder")
+      .getElementsByClassName("svgHolder")[0].children[0];
     if (
       holder.style.transform === "" ||
       holder.style.transform === "rotate(-90deg)"
