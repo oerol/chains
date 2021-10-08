@@ -17,7 +17,10 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Navigation changeGlobalReviewMode={() => this.handleOnClick()} />
+        <Navigation
+          changeGlobalReviewMode={() => this.handleOnClick()}
+          reviewMode={!this.state.reviewMode}
+        />
         <div id="mainContent">
           <Card
             editable={this.state.editable}

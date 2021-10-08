@@ -3,21 +3,20 @@ import ReviewButton from "./ReviewButton";
 
 interface NavigationProps {
   changeGlobalReviewMode: () => any;
+  reviewMode: boolean;
 }
 
 const Navigation: React.FunctionComponent<NavigationProps> = (
   props: NavigationProps
 ) => {
-  const [reviewMode, setReviewMode] = React.useState(false);
   const handleReviewButton = () => {
-    setReviewMode(!reviewMode);
     props.changeGlobalReviewMode();
   };
   return (
     <nav id="navigation-wrapper">
       <ReviewButton
         changeReviewMode={() => handleReviewButton()}
-        reviewMode={!reviewMode}
+        reviewMode={props.reviewMode}
       ></ReviewButton>
     </nav>
   );

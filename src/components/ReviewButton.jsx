@@ -22,6 +22,8 @@ class ReviewButton extends React.Component {
     document
       .getElementById("mainContent")
       .children[0].classList.add("cardPointer2");
+
+    document.activeElement.blur();
   }
 
   createCardPointer = () => {
@@ -35,7 +37,11 @@ class ReviewButton extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button id="reviewButton" onClick={() => this.props.changeReviewMode()}>
+        <button
+          id="reviewButton"
+          onClick={() => this.props.changeReviewMode()}
+          onKeyUp={(e) => e.preventDefault()}
+        >
           Review
         </button>
       </React.Fragment>
