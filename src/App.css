@@ -65,7 +65,7 @@ body {
 }
 
 button {
-  padding: 7px 15px;
+  padding: 5px 20px;
   font-family: "Proxima Nova Soft";
   font-weight: bold;
   background-color: #8336cba1;
@@ -73,7 +73,6 @@ button {
   border: none;
   border-radius: 4px;
   font-size: 1.2rem;
-  margin-left: 50px; /* visibility */
   cursor: pointer;
 }
 
@@ -135,4 +134,13 @@ button:active {
   outline: 1px solid transparent;
   padding-left: 1px; /* else, cursor won't be visible  */
   width: 100%;
+}
+
+#navigation-wrapper {
+  padding: 0 15px;
+  background-color: gainsboro;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

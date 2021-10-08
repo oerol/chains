@@ -1,0 +1,19 @@
+#pomodoroTimer {
+  font-size: 30px;
+  background-color: greenyellow;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+#pomodoroTimer span:not(#pomodoroTimerSpacer) {
+  display: inline-block;
+  width: 35px;
+}
+
+#pomodoroTimerSpacer {
+  padding: 0 3px;
+  line-height: 1.15;
+}
