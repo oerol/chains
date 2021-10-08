@@ -16,6 +16,9 @@ class ReviewButton extends React.Component {
       for (let card of cards) {
         card.style.backgroundColor = "";
       }
+
+      let finishIndicatorElement = document.getElementById("finishIndicator");
+      finishIndicatorElement.remove();
     }
 
     document.getElementsByTagName("body")[0].classList.toggle("reviewMode");

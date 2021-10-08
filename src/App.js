@@ -27,7 +27,6 @@ class App extends React.Component {
             reviewMode={!this.state.reviewMode}
           />
         </div>
-        <PomodoroTimer durationInMinutes={10} />
       </React.Fragment>
     );
   }

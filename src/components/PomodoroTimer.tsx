@@ -1,5 +1,6 @@
 import * as React from "react";
 import Countdown from "react-countdown";
+import "./pomodoro-timer-style.css";
 
 interface Duration {
   durationInMinutes: number;
@@ -18,7 +19,11 @@ const PomodoroTimer: React.FunctionComponent<Duration> = ({
   durationInMinutes,
 }) => {
   // Random component
-  const Completionist = () => <span>End of Learnsession</span>;
+  const Completionist = () => (
+    <div id="pomodoroTimer">
+      <span>End!</span>
+    </div>
+  );
 
   // Renderer callback with condition
   const renderer = ({
@@ -28,9 +33,11 @@ const PomodoroTimer: React.FunctionComponent<Duration> = ({
       return <Completionist />;
     } else {
       return (
-        <span>
-          {minutes}:{seconds}
-        </span>
+        <div id="pomodoroTimer">
+          <span>{minutes}</span>
+          <span id="pomodoroTimerSpacer">:</span>
+          <span>{seconds}</span>
+        </div>
       );
     }
   };
