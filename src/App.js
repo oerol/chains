@@ -25,8 +25,11 @@ class App extends React.Component {
           />
         </div>
 
-        <div onClick={(e) => this.handleOnClick(e)}>
-          <ReviewButton reviewMode={this.state.reviewMode}></ReviewButton>
+        <div>
+          <ReviewButton
+            changeReviewMode={() => this.handleOnClick()}
+            reviewMode={!this.state.reviewMode}
+          ></ReviewButton>
         </div>
         <PomodoroTimer durationInMinutes={10} />
       </React.Fragment>

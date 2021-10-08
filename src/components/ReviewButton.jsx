@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class ReviewButton extends React.Component {
-  handleOnClick = () => {
+  componentDidUpdate() {
     if (!this.props.reviewMode) {
       document.getElementById("reviewButton").innerText = "Beenden";
       this.createCardPointer();
@@ -22,7 +22,7 @@ class ReviewButton extends React.Component {
     document
       .getElementById("mainContent")
       .children[0].classList.add("cardPointer2");
-  };
+  }
 
   createCardPointer = () => {
     let pointerElement = document.createElement("div");
@@ -35,7 +35,7 @@ class ReviewButton extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button id="reviewButton" onClick={this.handleOnClick}>
+        <button id="reviewButton" onClick={() => this.props.changeReviewMode()}>
           Review
         </button>
       </React.Fragment>
