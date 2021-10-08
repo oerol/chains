@@ -17,26 +17,19 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Navigation />
+        <Navigation changeGlobalReviewMode={() => this.handleOnClick()} />
         <div id="mainContent">
           <Card
             editable={this.state.editable}
             reviewMode={!this.state.reviewMode}
           />
         </div>
-
-        <div>
-          <ReviewButton
-            changeReviewMode={() => this.handleOnClick()}
-            reviewMode={!this.state.reviewMode}
-          ></ReviewButton>
-        </div>
         <PomodoroTimer durationInMinutes={10} />
       </React.Fragment>
     );
   }
 
-  handleOnClick = (e) => {
+  handleOnClick = () => {
     console.log(this.state.reviewMode);
 
     this.setState((prevState) => ({
