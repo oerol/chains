@@ -1,5 +1,7 @@
 const express = require("express");
 const mysql = require("mysql");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 3001;
 
@@ -35,6 +37,23 @@ app.get("/api", (req, res) => {
   );
 
   connection.end();
+});
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post("/write", (req, res) => {
+  const insertQuestion = req.body.insertQuestion;
+  const insertAnswer = req.body.insertAnswer;
+  const databaseInsert =
+    "INSERT INTO questions (deck, status, question, answer) VALUES (?,?,?,?)";
+  connection.query(
+    databaseInsert,
+    [1, 0, insertQuestion, insertAnswer],
+    (err, result) => {
+      console.log(result);
+    }
+  );
 });
 
 app.listen(PORT, () => {
