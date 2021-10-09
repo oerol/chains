@@ -19,11 +19,7 @@ const PomodoroTimer: React.FunctionComponent<Duration> = ({
   durationInMinutes,
 }) => {
   // Random component
-  const Completionist = () => (
-    <div id="pomodoroTimer">
-      <span>End!</span>
-    </div>
-  );
+  const Completionist = () => <div id="pomodoroTimer">End!</div>;
 
   // Renderer callback with condition
   const renderer = ({
