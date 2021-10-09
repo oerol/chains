@@ -66,6 +66,25 @@ app.get("/read", (req, res) => {
   });
 });
 
+app.put("/change", (req, res) => {
+  const id = req.body.id;
+
+  const changedQuestion = req.body.changedQuestion;
+  const changedAnswer = req.body.changedAnswer;
+  const changedStatus = req.body.changedStatus;
+
+  const databaseUpdate =
+    "UPDATE questions SET status = ?, question= ?, answer = ? WHERE id = ?";
+
+  connection.query(
+    databaseUpdate,
+    [changedStatus, changedQuestion, changedAnswer, id],
+    (err, result) => {
+      if (err) console.log(err);
+    }
+  );
+});
+
 app.listen(PORT, () => {
   console.log(`Server gestartet auf Port ${PORT}.`);
 });

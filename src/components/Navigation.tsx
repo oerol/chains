@@ -18,7 +18,7 @@ const Navigation: React.FunctionComponent<NavigationProps> = (
 
   const [data, setData] = React.useState(null);
   React.useEffect(() => {
-    getQuestions();
+    updateQuestion();
   });
 
   const writeToDatabase = () => {
@@ -33,6 +33,15 @@ const Navigation: React.FunctionComponent<NavigationProps> = (
   const getQuestions = () => {
     Axious.get("http://localhost:3001/read").then((response) => {
       console.log(response);
+    });
+  };
+
+  const updateQuestion = () => {
+    Axious.put("http://localhost:3001/change", {
+      id: 1,
+      changedStatus: 5,
+      changedQuestion: "CAAAAAA",
+      changedAnswer: "BYYYYYY",
     });
   };
 
