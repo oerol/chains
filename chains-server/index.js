@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3001;
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "",
+  password: "password",
   database: "express_database",
 });
 
@@ -54,6 +54,16 @@ app.post("/write", (req, res) => {
       console.log(result);
     }
   );
+});
+
+app.get("/read", (req, res) => {
+  connection.query("SELECT * FROM questions", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
 });
 
 app.listen(PORT, () => {

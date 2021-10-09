@@ -18,7 +18,7 @@ const Navigation: React.FunctionComponent<NavigationProps> = (
 
   const [data, setData] = React.useState(null);
   React.useEffect(() => {
-    writeToDatabase();
+    getQuestions();
   });
 
   const writeToDatabase = () => {
@@ -29,6 +29,13 @@ const Navigation: React.FunctionComponent<NavigationProps> = (
       alert("wooback baby");
     });
   };
+
+  const getQuestions = () => {
+    Axious.get("http://localhost:3001/read").then((response) => {
+      console.log(response);
+    });
+  };
+
   return (
     <nav id="navigation-wrapper">
       <PomodoroTimer durationInMinutes={1} />
