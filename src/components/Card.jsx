@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { position } from "caret-pos";
 import { FcExpand } from "react-icons/fc";
 import { BsArrowReturnRight } from "react-icons/bs";
+import Axious from "axios";
 
 class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: JSON.parse(localStorage.getItem("myData")),
+      /* questions: JSON.parse(localStorage.getItem("myData")), */
+      questions: [],
       counter: Number(localStorage.getItem("counter")),
       reviewCard: 0,
     };
@@ -96,7 +98,33 @@ class Card extends Component {
         }
       }
     });
+
+    this.getQuestions();
   }
+
+  writeToDatabase = () => {
+    Axious.post("http://localhost:3001/write", {
+      insertQuestion: "baby",
+      insertAnswer: "nein lol",
+    }).then(() => {
+      alert("wooback baby");
+    });
+  };
+
+  getQuestions = () => {
+    Axious.get("http://localhost:3001/read").then((response) => {
+      this.setState({ questions: response.data });
+    });
+  };
+
+  updateQuestion = () => {
+    Axious.put("http://localhost:3001/change", {
+      id: 1,
+      changedStatus: 5,
+      changedQuestion: "CAAAAAA",
+      changedAnswer: "BYYYYYY",
+    });
+  };
 
   markIncorrent = () => {
     let mainElement = document.getElementById("mainContent");
