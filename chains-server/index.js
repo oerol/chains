@@ -20,6 +20,16 @@ connection.connect(function (error) {
   connection.query(sql, function (error) {
     if (error) throw error;
   });
+
+  const checkIfEmpty = "SELECT COUNT(*) AS rowCount FROM questions";
+  connection.query(checkIfEmpty, (error, results) => {
+    if (results[0].rowCount === 0) {
+      console.log("Creating a base question..");
+      const createEmptyQuestion =
+        "INSERT INTO questions (deck, status, question, answer) VALUES (1,0,'Was könnte deine erste Frage sein?', 'Die Antwort befindet sich auf deiner Hand')";
+      connection.query(createEmptyQuestion);
+    }
+  });
 });
 
 const app = express();
@@ -80,6 +90,7 @@ app.put("/change", (req, res) => {
     databaseUpdate,
     [changedStatus, changedQuestion, changedAnswer, id],
     (err, result) => {
+      res.sendStatus(200);
       if (err) console.log(err);
     }
   );

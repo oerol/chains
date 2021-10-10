@@ -102,10 +102,10 @@ class Card extends Component {
     this.getQuestions();
   }
 
-  writeToDatabase = () => {
+  writeToDatabase = (question, answer) => {
     Axious.post("http://localhost:3001/write", {
-      insertQuestion: "baby",
-      insertAnswer: "nein lol",
+      insertQuestion: question,
+      insertAnswer: answer,
     }).then(() => {
       alert("wooback baby");
     });
@@ -117,12 +117,12 @@ class Card extends Component {
     });
   };
 
-  updateQuestion = () => {
+  updateQuestion = (id, newQuestionText, newAnswerText, newStatus) => {
     Axious.put("http://localhost:3001/change", {
-      id: 1,
-      changedStatus: 5,
-      changedQuestion: "CAAAAAA",
-      changedAnswer: "BYYYYYY",
+      id: id,
+      changedStatus: newStatus,
+      changedQuestion: newQuestionText,
+      changedAnswer: newAnswerText,
     });
   };
 
@@ -383,6 +383,12 @@ class Card extends Component {
 
   handleKeyUp = (e, question) => {
     this.saveToLocalStorage(question);
+    this.updateQuestion(
+      question.id,
+      question.question,
+      question.answer,
+      question.status
+    );
   };
   saveToLocalStorage = (question) => {
     question.question = document.getElementById(question.id).innerText;
