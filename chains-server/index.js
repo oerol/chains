@@ -128,6 +128,12 @@ app.post("/deck/new", (req, res) => {
   );
 });
 
+app.get("/deck/all", (req, res) => {
+  connection.query("SELECT * FROM decks", (err, result) => {
+    err ? console.log(err) : res.send(result);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server gestartet auf Port ${PORT}.`);
 });
