@@ -1,0 +1,56 @@
+.placeholder-title {
+  background-color: rgb(194, 180, 209);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+input {
+  border: 0.7px solid gray;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+.createDeck {
+  margin-top: 70px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+button[type="submit"] {
+  display: block;
+  background-color: rgb(194, 180, 209);
+}
+
+p {
+  text-align: center;
+}
+
+.deckOverview {
+  border: 1px solid rgba(141, 141, 141, 0.589);
+  border-radius: 2px;
+  width: 600px;
+  height: 30px;
+  line-height: 30px;
+
+  margin-bottom: 10px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  transition: background-color 2s, color 0.1s;
+  cursor: pointer;
+}
+
+.deckOverview:hover {
+  background-color: red;
+  color: white;
+}
+
+.date {
+  float: right;
+}
