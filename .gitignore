@@ -31,3 +31,4 @@ yarn-error.log*
 *.code-workspace
 src/components/test.ts
 src/.vscode/launch.json
+src/components/test.js
