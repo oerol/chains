@@ -1,8 +1,9 @@
 import * as React from "react";
 import "./deck-selection.css";
 import database from "./database";
+import { Link } from "react-router-dom";
 
-interface DeckSelectionState {
+export interface DeckSelectionState {
   id: number;
   module: number;
   title: string;
@@ -59,16 +60,18 @@ const DeckSelection: React.FunctionComponent = () => {
         <div className="listDecks">
           <p>-- now the available ones.. sir.. --</p>
           {decks.map((deck, i) => (
-            <div
-              className="deckOverview"
-              key={i}
-              onClick={(event: React.MouseEvent<HTMLElement>) => {
-                switchToDeckOverview(deck);
-              }}
-            >
-              {i + 1}. {deck.title}{" "}
-              <span className="date">{convertDate(deck.nextReviewDate)}</span>
-            </div>
+            <Link to={`/deck/${deck.id}`} key={i}>
+              <div
+                className="deckOverview"
+                key={i}
+                onClick={(event: React.MouseEvent<HTMLElement>) => {
+                  switchToDeckOverview(deck);
+                }}
+              >
+                {i + 1}. {deck.title}{" "}
+                <span className="date">{convertDate(deck.nextReviewDate)}</span>
+              </div>
+            </Link>
           ))}
         </div>
       </main>

@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/deckoverview" component={DeckOverview} />
+        <Route path="/deck/:id" component={DeckOverview} />
         <Route path="/" component={DeckSelection} />
       </Switch>
     </Router>

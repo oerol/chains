@@ -134,6 +134,20 @@ app.get("/deck/all", (req, res) => {
   });
 });
 
+app.get("/deck/:deckId", (req, res) => {
+  const deckId = req.params.deckId;
+
+  connection.query(
+    "SELECT * FROM questions WHERE deck = ?",
+    deckId,
+    (err, result) => {
+      res.sendStatus(200);
+
+      if (err) console.log(err);
+    }
+  );
+});
+
 app.listen(PORT, () => {
   console.log(`Server gestartet auf Port ${PORT}.`);
 });
