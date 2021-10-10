@@ -21,6 +21,10 @@ connection.connect(function (error) {
     if (error) throw error;
   });
 
+  const createDeckTable =
+    "CREATE TABLE IF NOT EXISTS decks (id INT AUTO_INCREMENT PRIMARY KEY, module INT, title VARCHAR(255), description VARCHAR(255), dateCreated DATE, reviewStatus INT, nextReviewDate DATE)";
+  connection.query(createDeckTable);
+
   const checkIfEmpty = "SELECT COUNT(*) AS rowCount FROM questions";
   connection.query(checkIfEmpty, (error, results) => {
     if (results[0].rowCount === 0) {
@@ -102,6 +106,26 @@ app.delete("/delete/:questionId", (req, res) => {
     console.log("Deleted question with the id of: " + deleteId);
     if (err) console.log(err);
   });
+});
+
+/* DECKS */
+
+app.post("/deck/new", (req, res) => {
+  const deckTitle = req.body.deckTitle;
+  const deckDescription = req.body.deckDescription;
+
+  let today = new Date().toISOString().slice(0, 10);
+
+  const databaseInsert =
+    "INSERT INTO decks (module, title, description, dateCreated, reviewStatus, nextReviewDate) VALUES (?,?,?,?,?,?)";
+  connection.query(
+    databaseInsert,
+    [1, deckTitle, deckDescription, today, 0, today],
+    (err, result) => {
+      res.sendStatus(200);
+      if (err) console.log(err);
+    }
+  );
 });
 
 app.listen(PORT, () => {
