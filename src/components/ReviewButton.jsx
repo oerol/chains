@@ -18,7 +18,9 @@ class ReviewButton extends React.Component {
       }
 
       let finishIndicatorElement = document.getElementById("finishIndicator");
-      finishIndicatorElement.remove();
+      if (finishIndicatorElement) {
+        finishIndicatorElement.remove();
+      }
     }
 
     document.getElementsByTagName("body")[0].classList.toggle("reviewMode");

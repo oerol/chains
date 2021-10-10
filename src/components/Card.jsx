@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { position } from "caret-pos";
 import { FcExpand } from "react-icons/fc";
 import { BsArrowReturnRight } from "react-icons/bs";
-import Axious from "axios";
+import database from "../database";
 
 class Card extends Component {
   constructor(props) {
@@ -38,7 +38,24 @@ class Card extends Component {
     ],
     counter: 20,
   }; */
+  // should not use I GUESS
+  componentDidMount() {
+    document.addEventListener("keyup", (event) => {
+      if (!this.props.reviewMode) {
+        if (event.key === "ArrowRight") {
+          this.markCorrent();
+        } else if (event.key === "ArrowLeft") {
+          this.markIncorrent();
+        } else if (event.key === " ") {
+          this.expandCardPointer();
+        }
+      }
+    });
 
+    database.getQuestions().then((response) => {
+      this.setState({ questions: response });
+    });
+  }
   render() {
     /*     document.addEventListener("keyup", (event) => {
       if (!this.props.reviewMode && event.key === "ArrowRight") {
@@ -85,24 +102,8 @@ class Card extends Component {
       </React.Fragment>
     );
   }
-  // should not use I GUESS
-  componentDidMount() {
-    document.addEventListener("keyup", (event) => {
-      if (!this.props.reviewMode) {
-        if (event.key === "ArrowRight") {
-          this.markCorrent();
-        } else if (event.key === "ArrowLeft") {
-          this.markIncorrent();
-        } else if (event.key === " ") {
-          this.expandCardPointer();
-        }
-      }
-    });
 
-    this.getQuestions();
-  }
-
-  writeToDatabase = (question, answer) => {
+  /* writeToDatabase = (question, answer) => {
     Axious.post("http://localhost:3001/write", {
       insertQuestion: question,
       insertAnswer: answer,
@@ -125,7 +126,7 @@ class Card extends Component {
       changedAnswer: newAnswerText,
     });
   };
-
+ */
   markIncorrent = () => {
     let mainElement = document.getElementById("mainContent");
 

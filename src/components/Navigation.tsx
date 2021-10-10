@@ -1,5 +1,4 @@
 import * as React from "react";
-import { setEnvironmentData } from "worker_threads";
 import PomodoroTimer from "./PomodoroTimer";
 import ReviewButton from "./ReviewButton";
 
@@ -14,7 +13,6 @@ const Navigation: React.FunctionComponent<NavigationProps> = (
   const handleReviewButton = () => {
     props.changeGlobalReviewMode();
   };
-
   return (
     <nav id="navigation-wrapper">
       <PomodoroTimer durationInMinutes={1} />
