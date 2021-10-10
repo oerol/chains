@@ -61,18 +61,14 @@ app.post("/write", (req, res) => {
     databaseInsert,
     [1, 0, insertQuestion, insertAnswer],
     (err, result) => {
-      console.log(result);
+      if (err) console.log(err);
     }
   );
 });
 
 app.get("/read", (req, res) => {
   connection.query("SELECT * FROM questions", (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(result);
-    }
+    err ? console.log(err) : res.send(result);
   });
 });
 
@@ -91,10 +87,21 @@ app.put("/change", (req, res) => {
     [changedStatus, changedQuestion, changedAnswer, id],
     (err, result) => {
       res.sendStatus(200);
-      console.log("UPDATE");
       if (err) console.log(err);
     }
   );
+});
+
+app.delete("/delete/:questionId", (req, res) => {
+  const deleteId = req.params.questionId;
+  const databaseDelete = "DELETE FROM questions WHERE id = ?";
+
+  connection.query(databaseDelete, deleteId, (err, result) => {
+    res.sendStatus(200);
+
+    console.log("Deleted question with the id of: " + deleteId);
+    if (err) console.log(err);
+  });
 });
 
 app.listen(PORT, () => {

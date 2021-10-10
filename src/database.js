@@ -1,8 +1,14 @@
 import Axious from "axios";
 
+const url = "http://localhost:3001/";
+const urlCreateQuestion = url + "write";
+const urlGetQuestions = url + "read";
+const urlUpdateQuestion = url + "change";
+const urlDeleteQuestion = url + "delete/";
+
 const database = {
   writeToDatabase: function (question, answer) {
-    Axious.post("http://localhost:3001/write", {
+    Axious.post(urlCreateQuestion, {
       insertQuestion: question,
       insertAnswer: answer,
     }).then(() => {
@@ -10,43 +16,19 @@ const database = {
     });
   },
   getQuestions: function () {
-    return Axious.get("http://localhost:3001/read").then(
-      (response) => response.data
-    );
+    return Axious.get(urlGetQuestions).then((response) => response.data);
   },
   updateQuestion: function (id, newQuestionText, newAnswerText, newStatus) {
-    Axious.put("http://localhost:3001/change", {
+    Axious.put(urlUpdateQuestion, {
       id: id,
       changedStatus: newStatus,
       changedQuestion: newQuestionText,
       changedAnswer: newAnswerText,
     });
+  },
+  deleteQuestion: function (id) {
+    Axious.delete(urlDeleteQuestion + id);
   },
 };
 
 export default database;
-
-/* writeToDatabase = (question, answer) => {
-    Axious.post("http://localhost:3001/write", {
-      insertQuestion: question,
-      insertAnswer: answer,
-    }).then(() => {
-      alert("wooback baby");
-    });
-  };
-
-  getQuestions = () => {
-    Axious.get("http://localhost:3001/read").then((response) => {
-      this.setState({ questions: response.data });
-    });
-  };
-
-  updateQuestion = (id, newQuestionText, newAnswerText, newStatus) => {
-    Axious.put("http://localhost:3001/change", {
-      id: id,
-      changedStatus: newStatus,
-      changedQuestion: newQuestionText,
-      changedAnswer: newAnswerText,
-    });
-  };
- */

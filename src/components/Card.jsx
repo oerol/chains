@@ -10,7 +10,7 @@ class Card extends Component {
     this.state = {
       /* questions: JSON.parse(localStorage.getItem("myData")), */
       questions: [],
-      counter: Number(localStorage.getItem("counter")),
+      counter: 0,
       reviewCard: 0,
     };
   }
@@ -53,7 +53,9 @@ class Card extends Component {
     });
 
     database.getQuestions().then((response) => {
-      this.setState({ questions: response });
+      let numberOfQuestions = response.length;
+      let highestValue = response[numberOfQuestions - 1].id + 1;
+      this.setState({ questions: response, counter: highestValue });
     });
   }
   render() {
@@ -66,8 +68,9 @@ class Card extends Component {
       <React.Fragment>
         {this.state.questions.map((question, i) => {
           return (
-            <div className="cardHolder" id={question.id + "holder"}>
+            <div className="cardHolder" id={question.id + "holder"} key={i}>
               <div
+                key={i}
                 className="svgHolder"
                 onClick={(e) => this.handleOnClick(question)}
               >
@@ -376,6 +379,7 @@ class Card extends Component {
             return this.deleteFromLocalStorage(question);
           }
         );
+        database.deleteQuestion(question.id);
       }
     }
 
@@ -394,7 +398,7 @@ class Card extends Component {
 
   handleKeyUp = (e, question) => {
     this.saveToLocalStorage(question);
-    console.log("woobacc");
+    console.log(question);
     database.updateQuestion(
       question.id,
       question.question,
@@ -457,7 +461,7 @@ class Card extends Component {
     let previousElement = currentElement.previousSibling;
     let content = document.createTextNode(text);
 
-    previousElement.lastChild.appendChild(content);
+    previousElement.getElementsByClassName("card")[0].appendChild(content);
   };
 
   moveTextToLowerCard = (text, currentElement) => {};
