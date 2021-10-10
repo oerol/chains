@@ -91,6 +91,7 @@ app.put("/change", (req, res) => {
     [changedStatus, changedQuestion, changedAnswer, id],
     (err, result) => {
       res.sendStatus(200);
+      console.log("UPDATE");
       if (err) console.log(err);
     }
   );

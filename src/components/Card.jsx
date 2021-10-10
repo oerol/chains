@@ -265,7 +265,7 @@ class Card extends Component {
         this.setState({ counter: this.state.counter + 1 });
         let newQuestion = {
           id: this.state.counter,
-          question: "",
+          question: "?",
           answer: "",
           status: 0,
         };
@@ -280,14 +280,16 @@ class Card extends Component {
 
           // this.moveCadet(newQuestion.id, "create")
         );
+        database.writeToDatabase(newQuestion.question, newQuestion.answer);
       } else {
         this.setState({ counter: this.state.counter + 1 });
         let currentText = currentElement.textContent;
         let cutText = currentText.substring(caretPosition, textLength);
+
         let newQuestion = {
           id: this.state.counter,
           question: cutText,
-          answer: "",
+          answer: "?",
           status: 0,
         };
 
@@ -296,6 +298,13 @@ class Card extends Component {
           caretPosition
         );
         currentElementText += "?";
+
+        database.updateQuestion(
+          question.id,
+          currentElementText,
+          question.answer,
+          question.status
+        );
 
         let copy = this.state.questions;
         copy.splice(elementPosition, 0, newQuestion);
@@ -310,6 +319,7 @@ class Card extends Component {
 
           // this.moveCadet(newQuestion.id, "create")
         );
+        database.writeToDatabase(newQuestion.question, newQuestion.answer);
       }
     }
   };
@@ -384,7 +394,8 @@ class Card extends Component {
 
   handleKeyUp = (e, question) => {
     this.saveToLocalStorage(question);
-    this.updateQuestion(
+    console.log("woobacc");
+    database.updateQuestion(
       question.id,
       question.question,
       question.answer,
