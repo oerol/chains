@@ -1,8 +1,6 @@
 import React from "react";
 import "./App.css";
 import Card from "./components/Card";
-import ReviewButton from "./components/ReviewButton";
-import PomodoroTimer from "./components/PomodoroTimer";
 import Navigation from "./components/Navigation";
 
 class App extends React.Component {
