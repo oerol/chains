@@ -2,7 +2,7 @@ import Axious from "axios";
 
 const url = "http://localhost:3001/";
 const urlCreateQuestion = url + "write";
-const urlGetQuestions = url + "read";
+const urlGetQuestions = url + "read/";
 const urlUpdateQuestion = url + "change";
 const urlDeleteQuestion = url + "delete/";
 
@@ -18,8 +18,8 @@ const database = {
       alert("wooback baby");
     });
   },
-  getQuestions: function () {
-    return Axious.get(urlGetQuestions).then((response) => response.data);
+  getQuestions: function (id) {
+    return Axious.get(urlGetQuestions + id).then((response) => response.data);
   },
   updateQuestion: function (id, newQuestionText, newAnswerText, newStatus) {
     Axious.put(urlUpdateQuestion, {

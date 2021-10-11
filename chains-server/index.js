@@ -70,9 +70,13 @@ app.post("/write", (req, res) => {
   );
 });
 
-app.get("/read", (req, res) => {
-  connection.query("SELECT * FROM questions", (err, result) => {
-    err ? console.log(err) : res.send(result);
+app.get("/read/:deckId", (req, res) => {
+  const deckId = req.params.deckId;
+  const databaseGet = "SELECT * FROM questions WHERE deck = ?";
+
+  connection.query(databaseGet, deckId, (err, result) => {
+    res.send(result);
+    if (err) console.log(err);
   });
 });
 

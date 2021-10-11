@@ -52,10 +52,12 @@ class Card extends Component {
       }
     });
 
-    database.getQuestions().then((response) => {
-      let numberOfQuestions = response.length;
-      let highestValue = response[numberOfQuestions - 1].id + 1;
-      this.setState({ questions: response, counter: highestValue });
+    database.getQuestions(this.props.currentDeck).then((response) => {
+      if (response.length !== 0) {
+        let numberOfQuestions = response.length;
+        let highestValue = response[numberOfQuestions - 1].id + 1;
+        this.setState({ questions: response, counter: highestValue });
+      }
     });
   }
   render() {
