@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import PomodoroTimer from "./PomodoroTimer";
 import ReviewButton from "./ReviewButton";
 
@@ -16,7 +17,9 @@ const Navigation: React.FunctionComponent<NavigationProps> = (
   return (
     <nav id="navigation-wrapper">
       <PomodoroTimer durationInMinutes={1} />
-
+      <Link to={"/"}>
+        <button id="switchToDeckSelection">Decks</button>
+      </Link>
       <ReviewButton
         changeReviewMode={() => handleReviewButton()}
         reviewMode={props.reviewMode}
