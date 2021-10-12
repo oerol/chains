@@ -3,6 +3,7 @@ import { position } from "caret-pos";
 import { FcExpand } from "react-icons/fc";
 import { BsArrowReturnRight } from "react-icons/bs";
 import database from "../database";
+import { isThisTypeNode } from "typescript";
 
 class Card extends Component {
   constructor(props) {
@@ -39,6 +40,14 @@ class Card extends Component {
     counter: 20,
   }; */
   // should not use I GUESS
+
+  componentDidUpdate(prevProps) {
+    if (this.props.reviewMode !== prevProps.reviewMode) {
+      console.log("pay");
+      this.setState({ reviewCard: 0 });
+    }
+  }
+
   componentDidMount() {
     document.addEventListener("keyup", (event) => {
       if (!this.props.reviewMode) {
@@ -55,9 +64,13 @@ class Card extends Component {
     database.getQuestions(this.props.currentDeck).then((response) => {
       let numberOfQuestions = response.length;
       let highestValue = response[numberOfQuestions - 1].id + 1;
-      this.setState({ questions: response, counter: highestValue });
+      this.setState({
+        questions: response,
+        counter: highestValue,
+      });
     });
   }
+
   render() {
     /*     document.addEventListener("keyup", (event) => {
       if (!this.props.reviewMode && event.key === "ArrowRight") {
@@ -140,14 +153,15 @@ class Card extends Component {
 
       let copyOfArray = [...this.state.questions];
       let copyOfQuestion = { ...copyOfArray[this.state.reviewCard] };
-      copyOfQuestion.status++;
+      copyOfQuestion.status--;
       copyOfArray[this.state.reviewCard] = copyOfQuestion;
       this.setState({
         reviewCard: this.state.reviewCard + 1,
         questions: copyOfArray,
       });
-    } else {
-      this.finishReview();
+      if (this.state.reviewCard === mainElement.children.length) {
+        this.finishReview();
+      }
     }
   };
 
@@ -162,13 +176,17 @@ class Card extends Component {
       let copyOfArray = [...this.state.questions];
       let copyOfQuestion = { ...copyOfArray[this.state.reviewCard] };
       copyOfQuestion.status++;
+
+      console.log("POPPY: " + copyOfArray);
+      console.log("rev: " + this.state.reviewCard);
       copyOfArray[this.state.reviewCard] = copyOfQuestion;
       this.setState({
         reviewCard: this.state.reviewCard + 1,
         questions: copyOfArray,
       });
-    } else {
-      this.finishReview();
+      if (this.state.reviewCard === mainElement.children.length) {
+        this.finishReview();
+      }
     }
   };
 
@@ -181,7 +199,7 @@ class Card extends Component {
         (this.state.reviewCard + 1) * 56
       }px`;
     } else {
-      this.finishReview();
+      //  this.finishReview();
     }
   };
 
@@ -251,7 +269,9 @@ class Card extends Component {
 
     this.saveReviewToLocalStorage();
 
-    this.setState({ reviewCard: -1 });
+    this.state.questions.forEach((question) => {
+      database.updateQuestionStatus(question.id, question.status);
+    });
   };
 
   handleKeyPress = (event, question) => {

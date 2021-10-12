@@ -4,6 +4,7 @@ const url = "http://localhost:3001/";
 const urlCreateQuestion = url + "write";
 const urlGetQuestions = url + "read/";
 const urlUpdateQuestion = url + "change";
+const urlUpdateQuestionStatus = url + "card/updateStatus";
 const urlDeleteQuestion = url + "delete/";
 
 const urlCreateDeck = url + "deck/new";
@@ -28,6 +29,12 @@ const database = {
       changedStatus: newStatus,
       changedQuestion: newQuestionText,
       changedAnswer: newAnswerText,
+    });
+  },
+  updateQuestionStatus: function (id, newStatus) {
+    Axious.put(urlUpdateQuestionStatus, {
+      id: id,
+      newStatus: newStatus,
     });
   },
   deleteQuestion: function (id) {

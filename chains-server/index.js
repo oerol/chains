@@ -167,6 +167,19 @@ app.get("/deck/:deckId", (req, res) => {
   );
 });
 
+app.put("/card/updateStatus", (req, res) => {
+  const id = req.body.id;
+  const newStatus = req.body.newStatus;
+
+  const databaseUpdate = "UPDATE questions SET status = ? WHERE id = ?";
+
+  connection.query(databaseUpdate, [newStatus, id], (err, result) => {
+    res.sendStatus(200);
+    console.log("[CARD] Status of ID: " + id + " changed to: " + newStatus);
+    if (err) console.log(err);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server gestartet auf Port ${PORT}.`);
 });
