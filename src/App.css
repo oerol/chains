@@ -29,9 +29,6 @@ body {
   align-items: center;
   transition: 0.3s background-color ease-in-out;
 }
-.cardHolder:hover {
-  background-color: #f0e5cf;
-}
 
 .card {
   width: 100%;
@@ -144,3 +141,44 @@ button:active {
   align-items: center;
   justify-content: space-between;
 }
+
+/* card colors */
+
+.card-status-1 {
+  background-color: #e99497da;
+}
+.card-status-1:hover {
+  background-color: #e99497;
+}
+
+.card-status-2 {
+  background-color: #f3c583da;
+}
+
+.card-status-2:hover {
+  background-color: #f3c583;
+}
+
+.card-status-3 {
+  background-color: #e8e46eda;
+}
+
+.card-status-3:hover {
+  background-color: #e8e46e;
+}
+
+.card-status-4 {
+  background-color: #b3e283da;
+}
+
+.card-status-4:hover {
+  background-color: #b3e283;
+}
+
+/* .card-status-5 {
+  background-color: #b5deffda;
+}
+
+.card-status-5:hover {
+  background-color: #b5deff;
+} */

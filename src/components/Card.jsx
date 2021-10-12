@@ -81,7 +81,11 @@ class Card extends Component {
       <React.Fragment>
         {this.state.questions.map((question, i) => {
           return (
-            <div className="cardHolder" id={question.id + "holder"} key={i}>
+            <div
+              className={this.paintQuestionCard(question.status)}
+              id={question.id + "holder"}
+              key={i}
+            >
               <div
                 key={i}
                 className="svgHolder"
@@ -118,6 +122,35 @@ class Card extends Component {
       </React.Fragment>
     );
   }
+  paintQuestionCard = (status) => {
+    console.log(status);
+    let color;
+
+    switch (status) {
+      case 0:
+        color = "card-status-0";
+        break;
+      case 1:
+        color = "card-status-1";
+        break;
+      case 2:
+        color = "card-status-2";
+        break;
+      case 3:
+        color = "card-status-3";
+        break;
+      case 4:
+        color = "card-status-4";
+        break;
+      case 5:
+        color = "card-status-5";
+        break;
+      default:
+        color = "";
+    }
+    let className = "cardHolder " + color;
+    return className;
+  };
 
   /* writeToDatabase = (question, answer) => {
     Axious.post("http://localhost:3001/write", {
