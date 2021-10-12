@@ -53,11 +53,9 @@ class Card extends Component {
     });
 
     database.getQuestions(this.props.currentDeck).then((response) => {
-      if (response.length !== 0) {
-        let numberOfQuestions = response.length;
-        let highestValue = response[numberOfQuestions - 1].id + 1;
-        this.setState({ questions: response, counter: highestValue });
-      }
+      let numberOfQuestions = response.length;
+      let highestValue = response[numberOfQuestions - 1].id + 1;
+      this.setState({ questions: response, counter: highestValue });
     });
   }
   render() {
@@ -285,7 +283,11 @@ class Card extends Component {
 
           // this.moveCadet(newQuestion.id, "create")
         );
-        database.writeToDatabase(newQuestion.question, newQuestion.answer);
+        database.writeToDatabase(
+          this.props.currentDeck,
+          newQuestion.question,
+          newQuestion.answer
+        );
       } else {
         this.setState({ counter: this.state.counter + 1 });
         let currentText = currentElement.textContent;
@@ -324,7 +326,11 @@ class Card extends Component {
 
           // this.moveCadet(newQuestion.id, "create")
         );
-        database.writeToDatabase(newQuestion.question, newQuestion.answer);
+        database.writeToDatabase(
+          this.props.currentDeck,
+          newQuestion.question,
+          newQuestion.answer
+        );
       }
     }
   };

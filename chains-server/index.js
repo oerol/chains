@@ -57,13 +57,14 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/write", (req, res) => {
+  const insertDeck = req.body.insertDeck;
   const insertQuestion = req.body.insertQuestion;
   const insertAnswer = req.body.insertAnswer;
   const databaseInsert =
     "INSERT INTO questions (deck, status, question, answer) VALUES (?,?,?,?)";
   connection.query(
     databaseInsert,
-    [1, 0, insertQuestion, insertAnswer],
+    [insertDeck, 0, insertQuestion, insertAnswer],
     (err, result) => {
       if (err) console.log(err);
     }
@@ -120,13 +121,27 @@ app.post("/deck/new", (req, res) => {
 
   let today = new Date().toISOString().slice(0, 10);
 
+  let createdDeckId = 1;
+
   const databaseInsert =
     "INSERT INTO decks (module, title, description, dateCreated, reviewStatus, nextReviewDate) VALUES (?,?,?,?,?,?)";
   connection.query(
     databaseInsert,
     [1, deckTitle, deckDescription, today, 0, today],
     (err, result) => {
-      res.sendStatus(200);
+      res.send(result);
+      createdDeckId = result.insertId;
+      console.log("dame" + createdDeckId);
+
+      const databaseEmptyQuestion =
+        "INSERT INTO questions (deck, status, question, answer) VALUES (?,?,?,?)";
+      connection.query(
+        databaseEmptyQuestion,
+        [createdDeckId, 0, "?", ""],
+        (err, result) => {
+          if (err) console.log(err);
+        }
+      );
       if (err) console.log(err);
     }
   );

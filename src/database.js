@@ -10,8 +10,9 @@ const urlCreateDeck = url + "deck/new";
 const urlGetAllDecks = url + "deck/all";
 
 const database = {
-  writeToDatabase: function (question, answer) {
+  writeToDatabase: function (deck, question, answer) {
     Axious.post(urlCreateQuestion, {
+      insertDeck: deck,
       insertQuestion: question,
       insertAnswer: answer,
     }).then(() => {
