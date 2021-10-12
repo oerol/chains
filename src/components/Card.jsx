@@ -180,13 +180,22 @@ class Card extends Component {
     let mainElement = document.getElementById("mainContent");
 
     if (this.state.reviewCard < mainElement.children.length) {
-      mainElement.children[this.state.reviewCard].style.backgroundColor =
-        "#FE8F8F";
-      this.moveCardPointer();
-
       let copyOfArray = [...this.state.questions];
       let copyOfQuestion = { ...copyOfArray[this.state.reviewCard] };
-      copyOfQuestion.status--;
+
+      if (copyOfQuestion.status === 1) {
+        mainElement.children[this.state.reviewCard].classList.add(
+          "card-status-1"
+        );
+      } else if (copyOfQuestion.status < 5) {
+        console.log("object");
+        copyOfQuestion.status--;
+        mainElement.children[this.state.reviewCard].classList.add(
+          "card-status-" + copyOfQuestion.status
+        );
+      }
+      this.moveCardPointer();
+
       copyOfArray[this.state.reviewCard] = copyOfQuestion;
       this.setState({
         reviewCard: this.state.reviewCard + 1,
@@ -202,13 +211,20 @@ class Card extends Component {
     let mainElement = document.getElementById("mainContent");
 
     if (this.state.reviewCard < mainElement.children.length) {
-      mainElement.children[this.state.reviewCard].style.backgroundColor =
-        "#B1E693";
-      this.moveCardPointer();
-
       let copyOfArray = [...this.state.questions];
       let copyOfQuestion = { ...copyOfArray[this.state.reviewCard] };
-      copyOfQuestion.status++;
+
+      /* mainElement.children[this.state.reviewCard].style.backgroundColor =
+      "#B1E693"; */
+
+      if (copyOfQuestion.status < 5 - 1) {
+        copyOfQuestion.status++;
+        mainElement.children[this.state.reviewCard].classList.add(
+          "card-status-" + copyOfQuestion.status
+        );
+      }
+
+      this.moveCardPointer();
 
       console.log("POPPY: " + copyOfArray);
       console.log("rev: " + this.state.reviewCard);
