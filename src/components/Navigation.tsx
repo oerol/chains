@@ -16,7 +16,7 @@ const Navigation: React.FunctionComponent<NavigationProps> = (
   };
   return (
     <nav id="navigation-wrapper">
-      <PomodoroTimer durationInMinutes={1} />
+      {!props.reviewMode && <PomodoroTimer durationInMinutes={45} />}
       <Link to={"/"}>
         <button id="switchToDeckSelection">Decks</button>
       </Link>
