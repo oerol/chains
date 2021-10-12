@@ -250,6 +250,8 @@ class Card extends Component {
     }
 
     this.saveReviewToLocalStorage();
+
+    this.setState({ reviewCard: -1 });
   };
 
   handleKeyPress = (event, question) => {
