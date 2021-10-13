@@ -3,7 +3,7 @@ import { position } from "caret-pos";
 import { FcExpand } from "react-icons/fc";
 import { BsArrowReturnRight } from "react-icons/bs";
 import database from "../database";
-import { isThisTypeNode } from "typescript";
+import algorithm from "../algorithm";
 
 class Card extends Component {
   constructor(props) {
@@ -321,6 +321,9 @@ class Card extends Component {
     this.state.questions.forEach((question) => {
       database.updateQuestionStatus(question.id, question.status);
     });
+
+    /* change nextReviewDate */
+    algorithm.getNextLearningDate(this.props.currentDeck);
   };
 
   handleKeyPress = (event, question) => {

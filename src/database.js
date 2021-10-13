@@ -9,6 +9,8 @@ const urlDeleteQuestion = url + "delete/";
 
 const urlCreateDeck = url + "deck/new";
 const urlGetAllDecks = url + "deck/all";
+const urlGetDeck = url + "deck/";
+const urlUpdateDeck = url + "deck/put";
 
 const database = {
   writeToDatabase: function (deck, question, answer) {
@@ -43,10 +45,20 @@ const database = {
   getDecks: function () {
     return Axious.get(urlGetAllDecks).then((response) => response.data);
   },
+  getDeck: function (id) {
+    return Axious.get(urlGetDeck + id).then((response) => response.data);
+  },
   createDeck: function (title, description) {
     Axious.post(urlCreateDeck, {
       deckTitle: title,
       deckDescription: description,
+    });
+  },
+  updateDeck: function (id, newReviewDate, newStatus) {
+    Axious.put(urlUpdateDeck, {
+      id: id,
+      newReviewDate: newReviewDate,
+      newStatus: newStatus,
     });
   },
 };

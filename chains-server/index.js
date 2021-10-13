@@ -147,21 +147,53 @@ app.post("/deck/new", (req, res) => {
   );
 });
 
+app.put("/deck/put", (req, res) => {
+  const id = req.body.id;
+
+  const newReviewDate = req.body.newReviewDate;
+  const newStatus = req.body.newStatus;
+
+  const databaseUpdate =
+    "UPDATE decks SET nextReviewDate = ?, reviewStatus= ? WHERE id = ?";
+
+  connection.query(
+    databaseUpdate,
+    [newReviewDate, newStatus, id],
+    (err, result) => {
+      console.log(
+        "[DECK:UPDATE] id: " +
+          id +
+          " newReviewDate: " +
+          newReviewDate +
+          " newStatus" +
+          newStatus
+      );
+      res.sendStatus(200);
+      if (err) console.log(err);
+    }
+  );
+});
+
 app.get("/deck/all", (req, res) => {
   connection.query("SELECT * FROM decks", (err, result) => {
     err ? console.log(err) : res.send(result);
   });
 });
 
+/* app.get("/deck/all", (req, res) => {
+  connection.query("SELECT * FROM decks", (err, result) => {
+    err ? console.log(err) : res.send(result);
+  });
+}); */
+
 app.get("/deck/:deckId", (req, res) => {
   const deckId = req.params.deckId;
 
   connection.query(
-    "SELECT * FROM questions WHERE deck = ?",
+    "SELECT * FROM decks WHERE id = ?",
     deckId,
     (err, result) => {
-      res.sendStatus(200);
-
+      res.send(result);
       if (err) console.log(err);
     }
   );
