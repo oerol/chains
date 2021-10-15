@@ -80,12 +80,22 @@ class Card extends Component {
     return (
       <React.Fragment>
         {this.state.questions.map((question, i) => {
+          let answerArray;
+          if (question.answer !== "") {
+            answerArray = JSON.parse(question.answer);
+          } else {
+            answerArray = [""];
+          }
           return (
             <div
               className={this.paintQuestionCard(question.status)}
               id={question.id + "holder"}
               key={i}
             >
+              {console.log(typeof answerArray)}
+              {/*               {answerArray.map((answer) => {
+                return <div>ay</div>;
+              })} */}
               <div
                 key={i}
                 className="svgHolder"
@@ -105,17 +115,23 @@ class Card extends Component {
               >
                 {question.question}
               </div>
-              <div className="answerHolder">
-                <BsArrowReturnRight className="answerArrow" />
-                <div
-                  className="answerText"
-                  contentEditable={this.props.editable}
-                  suppressContentEditableWarning={true}
-                  onKeyUp={(e) => this.handleKeyUp(e, question)}
-                >
-                  {question.answer}
-                </div>
-              </div>
+              {answerArray.map((answer) => {
+                console.log(answer);
+                return (
+                  <div className="answerHolder">
+                    <BsArrowReturnRight className="answerArrow" />
+                    <div
+                      className="answerText"
+                      contentEditable={this.props.editable}
+                      suppressContentEditableWarning={true}
+                      onKeyUp={(e) => this.handleKeyUp(e, question)}
+                      onKeyPress={(e) => this.answerHandleKeyPress(e, question)}
+                    >
+                      {answer}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           );
         })}
@@ -294,14 +310,13 @@ class Card extends Component {
   };
 
   revealAnswer = (b, questionId) => {
-    let answerHolderElement = document
+    let answerHolderElements = document
       .getElementById(questionId + "holder")
-      .getElementsByClassName("answerHolder")[0];
-    console.log(answerHolderElement.style.display);
+      .getElementsByClassName("answerHolder");
 
-    b
-      ? (answerHolderElement.style.display = "flex")
-      : (answerHolderElement.style.display = "none");
+    for (let answer of answerHolderElements) {
+      b ? (answer.style.display = "flex") : (answer.style.display = "none");
+    }
   };
 
   finishReview = () => {
@@ -326,6 +341,12 @@ class Card extends Component {
     algorithm.getNextLearningDate(this.props.currentDeck);
   };
 
+  answerHandleKeyPress = (event, question) => {
+    event.preventDefault();
+
+    console.log(question);
+  };
+
   handleKeyPress = (event, question) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -335,8 +356,7 @@ class Card extends Component {
 
       let textLength = currentElement.innerText.length;
       const caretPosition = position(currentElement).pos;
-      console.log(caretPosition);
-      console.log(textLength);
+      console.log(question);
 
       if (caretPosition === textLength) {
         this.setState({ counter: this.state.counter + 1 });
@@ -480,7 +500,6 @@ class Card extends Component {
 
   handleKeyUp = (e, question) => {
     this.saveToLocalStorage(question);
-    console.log(question);
     database.updateQuestion(
       question.id,
       question.question,
