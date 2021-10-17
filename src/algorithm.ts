@@ -12,14 +12,11 @@ const algorithm = {
         let nextReviewInDays =
           fibonacci[response[0].reviewStatus] +
           fibonacci[response[0].reviewStatus + 1];
-        let getNextReviewDate = this.addDays(
-          response[0].nextReviewDate,
-          nextReviewInDays
-        )
-          .toISOString()
-          .substring(0, 10);
+        let getNextReviewDate = this.toIsoString(
+          this.addDays(response[0].nextReviewDate, nextReviewInDays)
+        );
 
-        console.log("PAPY: " + getNextReviewDate);
+        console.log(nextReviewInDays, getNextReviewDate);
 
         database.updateDeck(
           deckId,
@@ -31,7 +28,35 @@ const algorithm = {
   addDays: function (date: string, days: number) {
     let result = new Date(date);
     result.setDate(result.getDate() + days);
+    console.log(result);
     return result;
+  },
+  toIsoString: function (date: Date) {
+    // https://stackoverflow.com/questions/17415579/how-to-iso-8601-format-a-date-with-timezone-offset-in-javascript
+    var tzo = -date.getTimezoneOffset(),
+      dif = tzo >= 0 ? "+" : "-",
+      pad = function (num: number) {
+        var norm = Math.floor(Math.abs(num));
+        return (norm < 10 ? "0" : "") + norm;
+      };
+
+    return (
+      date.getFullYear() +
+      "-" +
+      pad(date.getMonth() + 1) +
+      "-" +
+      pad(date.getDate()) +
+      "T" +
+      pad(date.getHours()) +
+      ":" +
+      pad(date.getMinutes()) +
+      ":" +
+      pad(date.getSeconds()) +
+      dif +
+      pad(tzo / 60) +
+      ":" +
+      pad(tzo % 60)
+    );
   },
 };
 

@@ -1,7 +1,9 @@
 import * as React from "react";
 import "./deck-selection.css";
 import database from "./database";
+import algorithm from "./algorithm";
 import { Link } from "react-router-dom";
+import { AxiosResponse } from "axios";
 
 export interface DeckSelectionState {
   id: number;
@@ -17,10 +19,11 @@ const DeckSelection: React.FunctionComponent = () => {
   const [decks, setDecks] = React.useState<DeckSelectionState[]>([]);
 
   React.useEffect(() => {
+    console.log("AINT NO WAY");
     database.getDecks().then((response) => {
       setDecks(response);
     });
-  });
+  }, []);
 
   const handleOnClick = () => {
     let titleText = (document.getElementById("title") as HTMLInputElement)
@@ -29,7 +32,12 @@ const DeckSelection: React.FunctionComponent = () => {
       document.getElementById("description") as HTMLInputElement
     ).value;
 
-    database.createDeck(titleText, descriptionText);
+    database.createDeck(titleText, descriptionText).then((response) => {
+      let copy = [...decks];
+      copy.push(response);
+      console.log(copy);
+      setDecks(copy);
+    });
   };
 
   const switchToDeckOverview = (deck: DeckSelectionState) => {
@@ -37,7 +45,9 @@ const DeckSelection: React.FunctionComponent = () => {
   };
 
   const convertDate = (date: string) => {
-    return date.slice(0, 10);
+    let result = new Date(date).toLocaleDateString("de-DE");
+
+    return result;
   };
   return (
     <React.Fragment>
@@ -63,7 +73,7 @@ const DeckSelection: React.FunctionComponent = () => {
             <Link to={`/deck/${deck.id}`} key={i}>
               <div
                 className="deckOverview"
-                key={i}
+                key={deck.id}
                 onClick={(event: React.MouseEvent<HTMLElement>) => {
                   switchToDeckOverview(deck);
                 }}

@@ -80,12 +80,6 @@ class Card extends Component {
     return (
       <React.Fragment>
         {this.state.questions.map((question, i) => {
-          let answerArray;
-          if (question.answer !== "") {
-            answerArray = JSON.parse(question.answer);
-          } else {
-            answerArray = [""];
-          }
           return (
             <div
               className={this.paintQuestionCard(question.status)}
@@ -115,23 +109,18 @@ class Card extends Component {
               >
                 {question.question}
               </div>
-              {answerArray.map((answer) => {
-                console.log(answer);
-                return (
-                  <div className="answerHolder">
-                    <BsArrowReturnRight className="answerArrow" />
-                    <div
-                      className="answerText"
-                      contentEditable={this.props.editable}
-                      suppressContentEditableWarning={true}
-                      onKeyUp={(e) => this.handleKeyUp(e, question)}
-                      onKeyPress={(e) => this.answerHandleKeyPress(e, question)}
-                    >
-                      {answer}
-                    </div>
-                  </div>
-                );
-              })}
+              <div className="answerHolder">
+                <BsArrowReturnRight className="answerArrow" />
+                <div
+                  className="answerText"
+                  contentEditable={this.props.editable}
+                  suppressContentEditableWarning={true}
+                  onKeyUp={(e) => this.handleKeyUp(e, question)}
+                  onKeyPress={(e) => this.answerHandleKeyPress(e, question)}
+                >
+                  {question.answer}
+                </div>
+              </div>
             </div>
           );
         })}
@@ -342,9 +331,36 @@ class Card extends Component {
   };
 
   answerHandleKeyPress = (event, question) => {
-    event.preventDefault();
+    let answerElement = document
+      .getElementById(question.id + "holder")
+      .getElementsByClassName("answerHolder")[0];
+    if (event.key === "Enter") {
+      event.preventDefault();
+      /*       let height = parseInt(
+        window.getComputedStyle(answerElement).getPropertyValue("height"),
+        10
+      );
 
-    console.log(question);
+      answerElement.style.height = `${height + 20}px`; */
+
+      /*       let content = document.createTextNode("• ");
+
+      answerElement
+        .getElementsByClassName("answerText")[0]
+        .appendChild(content); */
+    }
+    if (
+      answerElement.getElementsByClassName("answerText")[0].textContent
+        .length === 55
+    ) {
+      console.log(
+        answerElement.getElementsByClassName("answerText")[0].textContent.length
+      );
+      console.log(window.getSelection().type === "Caret");
+      if (window.getSelection().type === "Caret") {
+        event.preventDefault();
+      }
+    }
   };
 
   handleKeyPress = (event, question) => {

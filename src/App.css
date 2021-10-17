@@ -44,7 +44,7 @@ body {
 
 .svgHolder svg,
 .svgHolder {
-  transition: 0.1s;
+  transition: 0.3s;
 }
 
 .svgHolder:hover {

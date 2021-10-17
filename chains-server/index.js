@@ -120,7 +120,7 @@ app.post("/deck/new", (req, res) => {
   const deckDescription = req.body.deckDescription;
 
   let today = new Date().toISOString().slice(0, 10);
-
+  console.log(today);
   let createdDeckId = 1;
 
   const databaseInsert =
@@ -129,7 +129,15 @@ app.post("/deck/new", (req, res) => {
     databaseInsert,
     [1, deckTitle, deckDescription, today, 0, today],
     (err, result) => {
-      res.send(result);
+      res.send({
+        id: result.insertId,
+        module: 1,
+        title: deckTitle,
+        description: deckDescription,
+        dateCreated: today,
+        reviewStatus: 0,
+        nextReviewDate: today,
+      });
       createdDeckId = result.insertId;
       console.log("dame" + createdDeckId);
 
@@ -176,7 +184,10 @@ app.put("/deck/put", (req, res) => {
 
 app.get("/deck/all", (req, res) => {
   connection.query("SELECT * FROM decks", (err, result) => {
-    err ? console.log(err) : res.send(result);
+    console.log("deck/all");
+    res.send(result);
+
+    if (err) console.log(err);
   });
 });
 
