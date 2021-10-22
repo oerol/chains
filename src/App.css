@@ -136,7 +136,7 @@ button:active {
 #navigation-wrapper {
   padding: 0 15px;
   background-color: gainsboro;
-  height: 25px;
+  height: 21px;
   display: flex;
   align-items: center;
   justify-content: space-between;

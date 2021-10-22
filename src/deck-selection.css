@@ -65,7 +65,7 @@ a {
 .listModules {
   display: flex;
   flex-wrap: wrap;
-  width: 65%;
+  width: 85%;
 }
 
 .listModules > p {
@@ -74,7 +74,7 @@ a {
 
 .moduleOverview {
   border: 1px solid rgba(141, 141, 141, 0.589);
-  border-radius: 2px;
+  border-radius: 5px;
   width: 300px;
   height: 150px;
   line-height: 30px;
@@ -91,6 +91,6 @@ a {
 
   text-align: center;
 
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 900;
 }
