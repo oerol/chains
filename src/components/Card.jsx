@@ -49,6 +49,8 @@ class Card extends Component {
   }
 
   componentDidMount() {
+    document.title =
+      document.title + " - " + "Fortgeschrittene Programmierkonzepte";
     document.addEventListener("keyup", (event) => {
       if (!this.props.reviewMode) {
         if (event.key === "ArrowRight") {
@@ -86,7 +88,6 @@ class Card extends Component {
               id={question.id + "holder"}
               key={i}
             >
-              {console.log(typeof answerArray)}
               {/*               {answerArray.map((answer) => {
                 return <div>ay</div>;
               })} */}
@@ -128,7 +129,6 @@ class Card extends Component {
     );
   }
   paintQuestionCard = (status) => {
-    console.log(status);
     let color;
 
     switch (status) {
@@ -188,12 +188,12 @@ class Card extends Component {
       let copyOfArray = [...this.state.questions];
       let copyOfQuestion = { ...copyOfArray[this.state.reviewCard] };
 
-      if (copyOfQuestion.status === 1) {
+      if (copyOfQuestion.status <= 1) {
+        copyOfQuestion.status = 1;
         mainElement.children[this.state.reviewCard].classList.add(
           "card-status-1"
         );
       } else if (copyOfQuestion.status < 5) {
-        console.log("object");
         copyOfQuestion.status--;
         mainElement.children[this.state.reviewCard].classList.add(
           "card-status-" + copyOfQuestion.status
@@ -231,8 +231,6 @@ class Card extends Component {
 
       this.moveCardPointer();
 
-      console.log("POPPY: " + copyOfArray);
-      console.log("rev: " + this.state.reviewCard);
       copyOfArray[this.state.reviewCard] = copyOfQuestion;
       this.setState({
         reviewCard: this.state.reviewCard + 1,
@@ -353,10 +351,6 @@ class Card extends Component {
       answerElement.getElementsByClassName("answerText")[0].textContent
         .length === 55
     ) {
-      console.log(
-        answerElement.getElementsByClassName("answerText")[0].textContent.length
-      );
-      console.log(window.getSelection().type === "Caret");
       if (window.getSelection().type === "Caret") {
         event.preventDefault();
       }
@@ -372,7 +366,6 @@ class Card extends Component {
 
       let textLength = currentElement.innerText.length;
       const caretPosition = position(currentElement).pos;
-      console.log(question);
 
       if (caretPosition === textLength) {
         this.setState({ counter: this.state.counter + 1 });

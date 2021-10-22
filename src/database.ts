@@ -12,6 +12,9 @@ const urlGetAllDecks = url + "deck/all";
 const urlGetDeck = url + "deck/";
 const urlUpdateDeck = url + "deck/put";
 
+const urlCreateModule = url + "module/new";
+const urlGetAllModules = url + "module/all";
+
 const database = {
   writeToDatabase: function (deck: number, question: string, answer: string) {
     Axious.post(urlCreateQuestion, {
@@ -47,8 +50,12 @@ const database = {
   deleteQuestion: function (id: number) {
     Axious.delete(urlDeleteQuestion + id);
   },
-  getDecks: function () {
-    return Axious.get(urlGetAllDecks).then((response) => response.data);
+  getDecks: function (moduleId: number) {
+    return Axious.get(urlGetAllDecks, {
+      params: {
+        id: moduleId,
+      },
+    }).then((response) => response.data);
   },
   getDeck: function (id: number) {
     return Axious.get(urlGetDeck + id).then((response) => response.data);
@@ -65,6 +72,14 @@ const database = {
       newReviewDate: newReviewDate,
       newStatus: newStatus,
     });
+  },
+  createModule: function (title: string) {
+    return Axious.post(urlCreateModule, {
+      moduleTitle: title,
+    }).then((response: any) => response.data);
+  },
+  getModules: function () {
+    return Axious.get(urlGetAllModules).then((response) => response.data);
   },
 };
 

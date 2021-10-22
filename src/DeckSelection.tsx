@@ -4,6 +4,7 @@ import database from "./database";
 import algorithm from "./algorithm";
 import { Link } from "react-router-dom";
 import { AxiosResponse } from "axios";
+import { RouteComponentProps } from "react-router";
 
 export interface DeckSelectionState {
   id: number;
@@ -15,12 +16,19 @@ export interface DeckSelectionState {
   nextReviewDate: string;
 }
 
-const DeckSelection: React.FunctionComponent = () => {
-  const [decks, setDecks] = React.useState<DeckSelectionState[]>([]);
+export interface DeckSelectionProps
+  extends RouteComponentProps<{ id: string }> {}
 
+const DeckSelection: React.FunctionComponent<DeckSelectionProps> = ({
+  match: {
+    params: { id },
+  },
+}) => {
+  const [decks, setDecks] = React.useState<DeckSelectionState[]>([]);
+  console.log("MULA", id);
   React.useEffect(() => {
     console.log("AINT NO WAY");
-    database.getDecks().then((response) => {
+    database.getDecks(parseInt(id)).then((response) => {
       setDecks(response);
     });
   }, []);

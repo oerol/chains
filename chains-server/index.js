@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "password",
-  database: "express_database",
+  database: "uni",
 });
 
 connection.connect(function (error) {
@@ -20,6 +20,10 @@ connection.connect(function (error) {
   connection.query(sql, function (error) {
     if (error) throw error;
   });
+
+  const createModuleTable =
+    "CREATE TABLE IF NOT EXISTS modules (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255))";
+  connection.query(createModuleTable);
 
   const createDeckTable =
     "CREATE TABLE IF NOT EXISTS decks (id INT AUTO_INCREMENT PRIMARY KEY, module INT, title VARCHAR(255), description VARCHAR(255), dateCreated DATE, reviewStatus INT, nextReviewDate DATE)";
@@ -66,6 +70,7 @@ app.post("/write", (req, res) => {
     databaseInsert,
     [insertDeck, 0, insertQuestion, insertAnswer],
     (err, result) => {
+      console.log("Frage: ", insertQuestion, "wurde erstellt");
       if (err) console.log(err);
     }
   );
@@ -155,6 +160,20 @@ app.post("/deck/new", (req, res) => {
   );
 });
 
+app.post("/module/new", (req, res) => {
+  const moduleTitle = req.body.moduleTitle;
+  console.log(moduleTitle);
+
+  const databaseInsert = "INSERT INTO modules (title) VALUES (?)";
+  connection.query(databaseInsert, moduleTitle, (err, result) => {
+    res.send({
+      id: result.insertId,
+      title: moduleTitle,
+    });
+    if (err) console.log(err);
+  });
+});
+
 app.put("/deck/put", (req, res) => {
   const id = req.body.id;
 
@@ -183,8 +202,22 @@ app.put("/deck/put", (req, res) => {
 });
 
 app.get("/deck/all", (req, res) => {
-  connection.query("SELECT * FROM decks", (err, result) => {
-    console.log("deck/all");
+  let param = req.query.id;
+  console.log(param);
+  connection.query(
+    "SELECT * FROM decks WHERE module = (?)",
+    param,
+    (err, result) => {
+      res.send(result);
+
+      if (err) console.log(err);
+    }
+  );
+});
+
+app.get("/module/all", (req, res) => {
+  connection.query("SELECT * FROM modules", (err, result) => {
+    console.log("module/all");
     res.send(result);
 
     if (err) console.log(err);
