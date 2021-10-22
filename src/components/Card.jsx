@@ -223,7 +223,11 @@ class Card extends Component {
       "#B1E693"; */
 
       if (copyOfQuestion.status < 5 - 1) {
-        copyOfQuestion.status++;
+        if (copyOfQuestion.status <= 1) {
+          copyOfQuestion.status = 2;
+        } else {
+          copyOfQuestion.status++;
+        }
         mainElement.children[this.state.reviewCard].classList.add(
           "card-status-" + copyOfQuestion.status
         );
