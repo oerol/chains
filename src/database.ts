@@ -60,8 +60,9 @@ const database = {
   getDeck: function (id: number) {
     return Axious.get(urlGetDeck + id).then((response) => response.data);
   },
-  createDeck: function (title: string, description: string) {
+  createDeck: function (id: number, title: string, description: string) {
     return Axious.post(urlCreateDeck, {
+      moduleId: id,
       deckTitle: title,
       deckDescription: description,
     }).then((response: any) => response.data);

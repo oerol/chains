@@ -40,12 +40,14 @@ const DeckSelection: React.FunctionComponent<DeckSelectionProps> = ({
       document.getElementById("description") as HTMLInputElement
     ).value;
 
-    database.createDeck(titleText, descriptionText).then((response) => {
-      let copy = [...decks];
-      copy.push(response);
-      console.log(copy);
-      setDecks(copy);
-    });
+    database
+      .createDeck(parseInt(id), titleText, descriptionText)
+      .then((response) => {
+        let copy = [...decks];
+        copy.push(response);
+        console.log(copy);
+        setDecks(copy);
+      });
   };
 
   const switchToDeckOverview = (deck: DeckSelectionState) => {

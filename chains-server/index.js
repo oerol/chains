@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "password",
-  database: "uni",
+  database: "express_database",
 });
 
 connection.connect(function (error) {
@@ -121,6 +121,7 @@ app.delete("/delete/:questionId", (req, res) => {
 /* DECKS */
 
 app.post("/deck/new", (req, res) => {
+  const moduleId = req.body.moduleId;
   const deckTitle = req.body.deckTitle;
   const deckDescription = req.body.deckDescription;
 
@@ -132,11 +133,11 @@ app.post("/deck/new", (req, res) => {
     "INSERT INTO decks (module, title, description, dateCreated, reviewStatus, nextReviewDate) VALUES (?,?,?,?,?,?)";
   connection.query(
     databaseInsert,
-    [1, deckTitle, deckDescription, today, 0, today],
+    [moduleId, deckTitle, deckDescription, today, 0, today],
     (err, result) => {
       res.send({
         id: result.insertId,
-        module: 1,
+        module: moduleId,
         title: deckTitle,
         description: deckDescription,
         dateCreated: today,
