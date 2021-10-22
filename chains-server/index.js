@@ -145,7 +145,6 @@ app.post("/deck/new", (req, res) => {
         nextReviewDate: today,
       });
       createdDeckId = result.insertId;
-      console.log("dame" + createdDeckId);
 
       const databaseEmptyQuestion =
         "INSERT INTO questions (deck, status, question, answer) VALUES (?,?,?,?)";

@@ -42,12 +42,7 @@ const ModuleSelection: React.FunctionComponent<ModuleSelectionProps> = () => {
       <main>
         <div className="createModule">
           <input type="text" name="title" id="title" placeholder="Modulname" />
-          <input
-            type="text"
-            name="description"
-            id="description"
-            placeholder="Beschreibung"
-          />
+
           <button type="submit" onClick={handleOnClick}>
             Erstellen
           </button>
@@ -63,7 +58,7 @@ const ModuleSelection: React.FunctionComponent<ModuleSelectionProps> = () => {
                   switchToModuleOverview(module);
                 }}
               >
-                {i + 1}. {module.title}
+                {module.title}
               </div>
             </Link>
           ))}

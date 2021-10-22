@@ -43,14 +43,12 @@ class Card extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.reviewMode !== prevProps.reviewMode) {
-      console.log("pay");
       this.setState({ reviewCard: 0 });
     }
   }
 
   componentDidMount() {
-    document.title =
-      document.title + " - " + "Fortgeschrittene Programmierkonzepte";
+    document.title = document.title + " - Fortgeschrittene Programmierkonzepte";
     document.addEventListener("keyup", (event) => {
       if (!this.props.reviewMode) {
         if (event.key === "ArrowRight") {

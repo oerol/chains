@@ -1,9 +1,7 @@
 import * as React from "react";
 import "./deck-selection.css";
 import database from "./database";
-import algorithm from "./algorithm";
 import { Link } from "react-router-dom";
-import { AxiosResponse } from "axios";
 import { RouteComponentProps } from "react-router";
 
 export interface DeckSelectionState {
@@ -25,9 +23,7 @@ const DeckSelection: React.FunctionComponent<DeckSelectionProps> = ({
   },
 }) => {
   const [decks, setDecks] = React.useState<DeckSelectionState[]>([]);
-  console.log("MULA", id);
   React.useEffect(() => {
-    console.log("AINT NO WAY");
     database.getDecks(parseInt(id)).then((response) => {
       setDecks(response);
     });
@@ -45,14 +41,11 @@ const DeckSelection: React.FunctionComponent<DeckSelectionProps> = ({
       .then((response) => {
         let copy = [...decks];
         copy.push(response);
-        console.log(copy);
         setDecks(copy);
       });
   };
 
-  const switchToDeckOverview = (deck: DeckSelectionState) => {
-    console.log(deck);
-  };
+  const switchToDeckOverview = (deck: DeckSelectionState) => {};
 
   const convertDate = (date: string) => {
     let result = new Date(date).toLocaleDateString("de-DE");

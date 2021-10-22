@@ -33,8 +33,7 @@ p {
   text-align: center;
 }
 
-.deckOverview,
-.moduleOverview {
+.deckOverview {
   border: 1px solid rgba(141, 141, 141, 0.589);
   border-radius: 2px;
   width: 600px;
@@ -61,4 +60,37 @@ p {
 a {
   text-decoration: none;
   color: violet;
+}
+
+.listModules {
+  display: flex;
+  flex-wrap: wrap;
+  width: 65%;
+}
+
+.listModules > p {
+  flex: 0 0 100%;
+}
+
+.moduleOverview {
+  border: 1px solid rgba(141, 141, 141, 0.589);
+  border-radius: 2px;
+  width: 300px;
+  height: 150px;
+  line-height: 30px;
+
+  margin-bottom: 10px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  transition: background-color 2s, color 0.1s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  font-size: 30px;
+  font-weight: 900;
 }
