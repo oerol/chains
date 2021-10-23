@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "password",
-  database: "express_database",
+  database: "uni",
 });
 
 connection.connect(function (error) {
