@@ -48,7 +48,6 @@ class Card extends Component {
   }
 
   componentDidMount() {
-    document.title = document.title + " - Fortgeschrittene Programmierkonzepte";
     document.addEventListener("keyup", (event) => {
       if (!this.props.reviewMode) {
         if (event.key === "ArrowRight") {

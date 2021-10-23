@@ -2,7 +2,7 @@ import * as React from "react";
 import "./deck-selection.css";
 import database from "./database";
 import { Link } from "react-router-dom";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useLocation } from "react-router";
 
 export interface DeckSelectionState {
   id: number;
@@ -15,7 +15,7 @@ export interface DeckSelectionState {
 }
 
 export interface DeckSelectionProps
-  extends RouteComponentProps<{ id: string }> {}
+  extends RouteComponentProps<{ id: string; title: string }> {}
 
 const DeckSelection: React.FunctionComponent<DeckSelectionProps> = ({
   match: {
@@ -28,6 +28,9 @@ const DeckSelection: React.FunctionComponent<DeckSelectionProps> = ({
       setDecks(response);
     });
   }, []);
+
+  const { state } = useLocation<{ title: string }>();
+  document.title = "Path - " + state.title;
 
   const handleOnClick = () => {
     let titleText = (document.getElementById("title") as HTMLInputElement)

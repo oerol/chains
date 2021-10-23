@@ -50,7 +50,15 @@ const ModuleSelection: React.FunctionComponent<ModuleSelectionProps> = () => {
         <div className="listModules">
           <p>-- now the available ones.. sir.. --</p>
           {module.map((module, i) => (
-            <Link to={`/module/${module.id}`} key={i}>
+            <Link
+              to={{
+                pathname: `/module/${module.id}`,
+                state: {
+                  title: module.title,
+                },
+              }}
+              key={i}
+            >
               <div
                 className="moduleOverview"
                 key={module.id}
