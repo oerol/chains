@@ -2,6 +2,11 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import database from "./database";
 import "./deck-selection.css";
+import "./styles/module-selection.css";
+
+import dna from "./assets/dna.png";
+import alembic from "./assets/alembic.png";
+import robot from "./assets/robot.png";
 
 interface ModuleSelectionProps {}
 
@@ -34,13 +39,123 @@ const ModuleSelection: React.FunctionComponent<ModuleSelectionProps> = () => {
   const switchToModuleOverview = (module: ModuleSelectionState) => {
     console.log(module);
   };
+
   return (
     <React.Fragment>
       <div className="placeholder-title">
         you can select a m o d u l e here.. if you'd like..
       </div>
       <main>
-        <div className="createModule">
+        <div className="overview">
+          <div className="greeting">
+            <span className="bold">Hello, </span>{" "}
+            <span id="learner-name">Özgür 👋</span>
+            <p className="description">
+              Nice to have you back! Let's get warmed up with a quick review of
+              your last lessons.
+            </p>
+          </div>
+          <div className="today">
+            <span className="heading">Today's assignments</span>
+            <div className="module-card">
+              <div className="percentage">
+                <div className="image-holder">
+                  <img src={dna} alt="" />
+                </div>
+                <span>80%</span>
+              </div>
+              <div className="description">
+                <div className="module-title">Biology Molecular</div>
+                <div className="module-info">
+                  <ul>
+                    <li>21 Questions</li>
+                    <li>15 min</li>
+                    <li>3 Decks</li>
+                    <li>1 Student</li>
+                  </ul>
+                  <div className="button-wrapper">
+                    <button className="button-secondary">Skip</button>
+                    <button className="button-primary">Continue</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="module-card">
+              <div className="percentage">
+                <div className="image-holder">
+                  <img src={robot} alt="" />
+                </div>
+                <span>80%</span>
+              </div>
+              <div className="description">
+                <div className="module-title">Biology Molecular</div>
+                <div className="module-info">
+                  <ul>
+                    <li>21 Questions</li>
+                    <li>15 min</li>
+                    <li>3 Decks</li>
+                    <li>1 Student</li>
+                  </ul>
+                  <div className="button-wrapper">
+                    <button className="button-secondary">Skip</button>
+                    <button className="button-primary">Continue</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="learning-history">
+            <span className="heading">Your last reviews</span>
+            <div className="selection">
+              <ul>
+                <li>
+                  <a href="" className="active">
+                    All
+                  </a>
+                </li>
+                <li>
+                  <a href="">Design</a>
+                </li>
+                <li>
+                  <a href="">Science</a>
+                </li>
+                <li>
+                  <a href="">Coding</a>
+                </li>
+              </ul>
+            </div>
+            <div className="module-card module-highlighted">
+              <div className="percentage">
+                <div className="image-holder image-holder-small">
+                  <img className="small" src={alembic} alt="" />
+                </div>
+              </div>
+              <div className="description">
+                <div className="module-title">Biology Molecular</div>
+                <div className="module-info ">
+                  <ul>
+                    <li>21 Questions</li>
+                    <li>15 min</li>
+                    <li>3 Decks</li>
+                    <li>1 Student</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="profile">
+          <div className="all-modules"></div>
+        </div>
+      </main>
+    </React.Fragment>
+  );
+};
+
+export default ModuleSelection;
+
+/* 
+<div className="createModule">
           <input type="text" name="title" id="title" placeholder="Modulname" />
 
           <button type="submit" onClick={handleOnClick}>
@@ -70,10 +185,5 @@ const ModuleSelection: React.FunctionComponent<ModuleSelectionProps> = () => {
               </div>
             </Link>
           ))}
-        </div>
-      </main>
-    </React.Fragment>
-  );
-};
-
-export default ModuleSelection;
+        </div> 
+*/
