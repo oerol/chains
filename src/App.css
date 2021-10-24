@@ -7,6 +7,7 @@ body {
   color: #4b6587;
   font-family: "Proxima Nova Soft";
   transition: 1s background-color ease-in-out;
+  background-color: #f7f6f9;
 }
 
 #mainContent {

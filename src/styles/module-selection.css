@@ -1,0 +1,168 @@
+main {
+  background-color: #6f6cf80e;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 20px 50px;
+}
+
+.overview {
+  background-color: white;
+  padding: 10px 30px;
+  border-radius: 10px;
+}
+
+.greeting > span {
+  font-size: 50px;
+}
+
+.bold {
+  font-weight: 900;
+}
+
+.description {
+  color: #888888;
+}
+
+.heading {
+  margin-top: 30px;
+  display: block;
+  font-size: 35px;
+  font-weight: 700;
+}
+
+.module-card {
+  background-color: #eae4ff;
+  height: 180px;
+  border-radius: 7px;
+  margin: 15px 0px;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 20px 50px;
+}
+
+img {
+  width: 60px;
+  position: relative;
+  margin: 18px;
+}
+
+.image-holder:before {
+  content: "";
+  position: absolute;
+  background-color: rgb(221, 221, 221);
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.module-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.module-info > ul {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 150px 150px;
+  padding: 0;
+}
+
+.module-info > ul > li {
+  border-radius: 5px;
+}
+
+.percentage > span {
+  margin-top: 20px;
+  display: block;
+  text-align: center;
+  font-weight: 900;
+  font-size: 25px;
+}
+
+.button-secondary,
+.button-primary {
+  width: 130px;
+  height: 40px;
+  border-radius: 10px;
+  font-weight: 100;
+}
+
+.button-secondary {
+  background-color: white;
+  color: rgb(173, 173, 173);
+  border: 2px solid green;
+  margin-right: 20px;
+}
+
+.button-primary {
+  background-color: green;
+  color: white;
+}
+
+.button-wrapper {
+  margin-top: 35px;
+}
+
+.selection > ul {
+  list-style-type: none;
+  display: flex;
+}
+
+.selection > ul > li {
+  padding: 0 20px;
+}
+
+.active::before {
+  content: "";
+  height: 3px;
+  width: 30px;
+  position: absolute;
+  background-color: rebeccapurple;
+  margin-top: 25px;
+  margin-left: -5px;
+}
+
+.active {
+  color: black;
+}
+
+a {
+  color: rgb(116, 116, 116);
+}
+
+.module-highlighted {
+  background-color: antiquewhite;
+  height: 150px;
+  padding: 35px;
+}
+
+.small {
+  width: 40px;
+}
+
+.image-holder-small:before {
+  content: "";
+  position: absolute;
+  background-color: rgb(235, 235, 235);
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}
+
+.profile {
+  background-color: white;
+  width: 1100px;
+  height: 870px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.all-modules {
+  background-color: gainsboro;
+  width: 360px;
+  height: 180px;
+  border-radius: 5px;
+}
