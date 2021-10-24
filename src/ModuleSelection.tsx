@@ -15,14 +15,18 @@ export interface ModuleSelectionState {
   title: string;
 }
 
+type ModuleDirection = "next" | "previous";
+
 const ModuleSelection: React.FunctionComponent<ModuleSelectionProps> = () => {
   const [module, setModule] = React.useState<ModuleSelectionState[]>([]);
+  const [currentModule, setCurrentModule] = React.useState(1);
 
   React.useEffect(() => {
     console.log("AINT NO WAY");
     database.getModules().then((response) => {
       setModule(response);
     });
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   }, []);
 
   const handleOnClick = () => {
@@ -38,6 +42,17 @@ const ModuleSelection: React.FunctionComponent<ModuleSelectionProps> = () => {
   };
   const switchToModuleOverview = (module: ModuleSelectionState) => {
     console.log(module);
+  };
+
+  const getModule = (direction: ModuleDirection) => {
+    let newModule = currentModule;
+    if (direction === "next" && currentModule < module.length) {
+      newModule = currentModule + 1;
+    } else if (direction === "previous" && currentModule > 1) {
+      newModule = currentModule - 1;
+    }
+    console.log(newModule);
+    setCurrentModule(newModule);
   };
 
   return (
@@ -145,7 +160,34 @@ const ModuleSelection: React.FunctionComponent<ModuleSelectionProps> = () => {
           </div>
         </div>
         <div className="profile">
-          <div className="all-modules"></div>
+          <div className="all-modules">
+            <div className="module-selector">
+              <button onClick={() => getModule("previous")}>&lt;</button>
+              <button onClick={() => getModule("next")}>&gt;</button>
+            </div>
+            {module
+              .filter((module) => module.id === currentModule)
+              .map((module) => (
+                <Link
+                  to={{
+                    pathname: `/module/${module.id}`,
+                    state: {
+                      title: module.title,
+                    },
+                  }}
+                >
+                  <div
+                    className="module-selection"
+                    key={module.id}
+                    onClick={(event: React.MouseEvent<HTMLElement>) => {
+                      switchToModuleOverview(module);
+                    }}
+                  >
+                    {module.title}
+                  </div>
+                </Link>
+              ))}
+          </div>
         </div>
       </main>
     </React.Fragment>
@@ -187,3 +229,26 @@ export default ModuleSelection;
           ))}
         </div> 
 */
+
+/* 
+            {module.map((module) => (
+              <Link
+                to={{
+                  pathname: `/module/${module.id}`,
+                  state: {
+                    title: module.title,
+                  },
+                }}
+              >
+                <div
+                  className="moduleOverview"
+                  key={module.id}
+                  onClick={(event: React.MouseEvent<HTMLElement>) => {
+                    switchToModuleOverview(module);
+                  }}
+                >
+                  {module.title}
+                </div>
+              </Link>
+            ))}
+             */

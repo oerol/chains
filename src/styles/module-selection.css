@@ -165,4 +165,16 @@ a {
   width: 360px;
   height: 180px;
   border-radius: 5px;
+  box-sizing: border-box;
+
+  padding: 10px;
+}
+
+.module-selector {
+  margin-bottom: 10px;
+  text-align: right;
+}
+.module-selector > button {
+  margin-left: 5px;
+  background-color: rgb(163, 163, 163);
 }
